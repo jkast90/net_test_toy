@@ -14,10 +14,3 @@ docker_base/gobgp-base/PyGoBGP
 
 # Logs
 *.log
-ui.log
-
-# Database files at root
-*.db
-
-# Topology exports
-topology-*.json
