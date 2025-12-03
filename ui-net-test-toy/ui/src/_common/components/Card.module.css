@@ -1,0 +1,98 @@
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-dark);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--accent-dark);
+  background: var(--header-bg);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.cardSubtitle {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.headerAction {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cardBody {
+  padding: 1.5rem;
+}
+
+/* Stat Card Styles */
+.statCard {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-dark);
+  border-radius: 8px;
+  padding: 1.25rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.statHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.statLabel {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statIcon {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text);
+  line-height: 1;
+}
+
+.statSubtitle {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.statTrend {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.statTrend.positive {
+  color: var(--success);
+}
+
+.statTrend.negative {
+  color: var(--error);
+}

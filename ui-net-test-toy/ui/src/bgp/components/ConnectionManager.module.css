@@ -1,0 +1,265 @@
+.connectionManager {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--background);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.header h3 {
+  margin: 0;
+  color: var(--text);
+}
+
+.clearButton {
+  padding: 0.375rem 0.75rem;
+  background: var(--accent-dark);
+  color: var(--text);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.2s;
+}
+
+.clearButton:hover {
+  background: var(--accent);
+}
+
+/* Daemon Grid */
+.daemonGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.daemonCard {
+  padding: 0.75rem;
+  background: var(--nav-bg);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.daemonCard:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.daemonCard.selected {
+  border-color: var(--accent-light);
+  background: var(--accent-dark);
+}
+
+.daemonHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.statusDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.daemonName {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.daemonInfo {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.daemonInfo .label {
+  font-weight: 600;
+}
+
+/* Watch Section */
+.watchSection {
+  padding: 1rem;
+  background: var(--nav-bg);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.watchSection h4 {
+  margin: 0 0 0.75rem 0;
+  color: var(--text);
+}
+
+.watchInput {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prefixInput {
+  flex: 1;
+  padding: 0.5rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: monospace;
+}
+
+.prefixInput:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.addButton {
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--text);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.addButton:hover {
+  background: var(--accent-light);
+}
+
+.prefixList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.prefixTag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background: var(--accent-dark);
+  border: 1px solid var(--accent);
+  border-radius: 16px;
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: var(--accent-light);
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s;
+}
+
+.removeButton:hover {
+  color: var(--error);
+}
+
+/* Log Section */
+.logSection {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  max-height: 500px;
+}
+
+.logHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.logHeader h4 {
+  margin: 0;
+  color: var(--text);
+}
+
+.autoScrollLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.autoScrollLabel input {
+  cursor: pointer;
+}
+
+.logContainer {
+  flex: 1;
+  padding: 0.75rem;
+  background: var(--nav-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+.logEntry {
+  padding: 0.375rem 0.5rem;
+  margin-bottom: 0.25rem;
+  border-radius: 4px;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.logEntry.route {
+  background: var(--background);
+  border-left: 3px solid var(--accent);
+}
+
+.logEntry.info {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 3px solid #3b82f6;
+}
+
+.logEntry.error {
+  background: rgba(239, 68, 68, 0.1);
+  border-left: 3px solid #ef4444;
+}
+
+.timestamp {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.daemon {
+  color: var(--accent-light);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.message {
+  color: var(--text);
+  flex: 1;
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 2rem;
+}

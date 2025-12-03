@@ -1,0 +1,23 @@
+*.pyc
+.venv
+**/node_modules/
+**/*.egg-info/
+**/__pycache__/
+
+# PyGoBGP is a symlink to external repo (../../../PyGoBGP-v3)
+docker_base/gobgp-base/PyGoBGP
+
+# Dist
+**/*dist/**
+
+.claude
+
+# Logs
+*.log
+ui.log
+
+# Database files at root
+*.db
+
+# Topology exports
+topology-*.json

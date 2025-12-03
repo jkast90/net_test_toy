@@ -1,0 +1,246 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.modal {
+  background: var(--background-primary, #1a1a1a);
+  border: 1px solid var(--border-color, #333);
+  border-radius: 8px;
+  width: 90vw;
+  max-width: 1200px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color, #333);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.helpText {
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.closeButton:hover {
+  background: var(--hover-background, rgba(255, 255, 255, 0.1));
+}
+
+.stats {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color, #333);
+  background: var(--background-secondary, #222);
+}
+
+.statItem {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color, #333);
+}
+
+.controls select,
+.controls button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color, #444);
+  background: var(--background-primary, #1a1a1a);
+  color: var(--text-primary, #fff);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  background: var(--hover-background, rgba(255, 255, 255, 0.1));
+}
+
+.dangerButton {
+  background: #ff4444 !important;
+  color: white !important;
+}
+
+.dangerButton:hover {
+  background: #ff6666 !important;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.listPanel {
+  flex: 1;
+  overflow-y: auto;
+  border-right: 1px solid var(--border-color, #333);
+}
+
+.historyItem {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color, #333);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.historyItem:hover {
+  background: var(--hover-background, rgba(255, 255, 255, 0.05));
+}
+
+.historyItem.selected {
+  background: var(--selected-background, rgba(100, 150, 255, 0.2));
+}
+
+.itemHeader {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.method {
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.method.get {
+  background: #4caf50;
+  color: white;
+}
+.method.post {
+  background: #2196f3;
+  color: white;
+}
+.method.put {
+  background: #ff9800;
+  color: white;
+}
+.method.patch {
+  background: #9c27b0;
+  color: white;
+}
+.method.delete {
+  background: #f44336;
+  color: white;
+}
+
+.endpoint {
+  flex: 1;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.status.success {
+  background: #4caf50;
+  color: white;
+}
+.status.error {
+  background: #f44336;
+  color: white;
+}
+.status.warning {
+  background: #ff9800;
+  color: white;
+}
+.status.default {
+  background: #757575;
+  color: white;
+}
+
+.itemMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.detailPanel {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.detailPanel h3 {
+  margin-top: 0;
+}
+
+.detailSection {
+  margin-bottom: 1rem;
+}
+
+.detailSection strong {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.detailSection pre {
+  background: var(--background-secondary, #222);
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.emptyState {
+  padding: 3rem;
+  text-align: center;
+  opacity: 0.5;
+}

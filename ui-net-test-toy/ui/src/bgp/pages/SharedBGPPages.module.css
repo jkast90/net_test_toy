@@ -1,0 +1,224 @@
+.container {
+  padding: 1rem;
+  padding-top: 4.5rem;
+  padding-bottom: 180px;
+  background: var(--nav-bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.sectionHeader {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--accent-light);
+  padding-bottom: 0.5rem;
+  color: var(--accent-light);
+  gap: 1rem;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.select {
+  padding: 0.5rem;
+  border: 1px solid var(--accent-dark);
+  border-radius: 4px;
+  background: var(--nav-bg);
+  color: var(--text);
+  min-width: 150px;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.button:hover {
+  background: var(--accent-dark);
+}
+
+.error {
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid #ef4444;
+  border-radius: 4px;
+  color: #ef4444;
+  margin-bottom: 1rem;
+}
+
+.loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.threeColumnGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.fourColumnGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.backendColumn {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.backendHeader {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-dark);
+  border-radius: 8px 8px 0 0;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: -1px;
+}
+
+.backendHeader h3 {
+  margin: 0;
+  color: var(--accent-light);
+  font-size: 1.2rem;
+}
+
+.neighborCount {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.neighborList {
+  margin-top: 0;
+}
+
+.neighborCard {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-dark);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+.neighborCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.neighborCardHeader {
+  padding: 1rem;
+  background: var(--group-header);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.neighborId {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.neighborId strong {
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.description {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.green {
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.red {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+}
+
+.neighborCardBody {
+  padding: 1rem;
+  border-top: 1px solid var(--accent-dark);
+}
+
+.neighGrid {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.neighGrid span:nth-child(4n+1),
+.neighGrid span:nth-child(4n+3) {
+  font-weight: 600;
+  color: var(--accent-light);
+}
+
+.section {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--accent-dark);
+}
+
+.section h4 {
+  color: var(--accent-light);
+  margin-bottom: 0.5rem;
+}
+
+.routeCount {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.routeList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.route {
+  padding: 0.5rem;
+  background: var(--nav-bg);
+  border: 1px solid var(--accent-dark);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.connectionManagerSection {
+  margin-top: 2rem;
+}

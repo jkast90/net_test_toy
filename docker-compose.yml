@@ -1,0 +1,166 @@
+# Unified NetStream Architecture
+# One container = One daemon + One embedded API
+# Use: docker compose up -d
+
+version: '3.8'
+
+services:
+  ##################################################
+  # Base Images (build-only, not started)
+  ##################################################
+  _python-base:
+    image: python-base:latest
+    build:
+      context: ./docker_base/python-base
+      dockerfile: dockerfile
+    command: ["true"]
+
+  _bullseye-base:
+    image: bullseye-base:latest
+    build:
+      context: ./docker_base/bullseye-base
+      dockerfile: dockerfile
+    command: ["true"]
+
+  ##################################################
+  # Daemon Images (build-only, not started)
+  # Use the Lab Manager UI to create daemon instances
+  ##################################################
+
+  _frr-unified:
+    image: frr-unified:latest
+    build:
+      context: .
+      dockerfile: docker_base/frr-unified/dockerfile
+    depends_on:
+      _bullseye-base:
+        condition: service_completed_successfully
+    command: ["true"]
+
+  _gobgp-unified:
+    image: gobgp-unified:latest
+    build:
+      context: .
+      dockerfile: docker_base/gobgp-unified/dockerfile
+    depends_on:
+      _python-base:
+        condition: service_completed_successfully
+    command: ["true"]
+
+  _exabgp-unified:
+    image: exabgp-unified:latest
+    build:
+      context: .
+      dockerfile: docker_base/exabgp-unified/dockerfile
+    depends_on:
+      _python-base:
+        condition: service_completed_successfully
+    command: ["true"]
+
+  ##################################################
+  # Host Images (build-only, not started)
+  # Use the Lab Manager UI to create host instances
+  ##################################################
+
+  _host-netknight:
+    image: host-netknight:latest
+    build:
+      context: .
+      dockerfile: docker_base/host-netknight/dockerfile
+    depends_on:
+      _python-base:
+        condition: service_completed_successfully
+    command: ["true"]
+
+  ##################################################
+  # Monitoring API (Unified BMP + NetFlow)
+  ##################################################
+  monitoring:
+    build: ./api-monitoring
+    container_name: netstream-monitoring
+    hostname: netstream-monitoring
+    ports:
+      - "11019:11019"    # BMP Server (TCP)
+      - "2055:2055/udp"  # NetFlow Collector (UDP)
+      - "5002:5002"      # Unified Monitoring API (HTTP)
+    environment:
+      # Unified API
+      - MONITORING_API_PORT=5002
+      # BMP Server
+      - BMP_LISTEN_HOST=0.0.0.0
+      - BMP_LISTEN_PORT=11019
+      # NetFlow Collector
+      - NETFLOW_PORT=2055
+    volumes:
+      - ./api-monitoring:/app/api-monitoring
+    command: >
+      sh -c "
+      pip3 install -q -r /app/api-monitoring/requirements.txt &&
+      cd /app/api-monitoring &&
+      python3 unified_monitoring_api.py
+      "
+    networks:
+      lab_network:
+        ipv4_address: 192.168.70.20
+    restart: unless-stopped
+
+  ##################################################
+  # Container Management API
+  ##################################################
+  container-manager:
+    build: ./api-container
+    container_name: container-manager
+    hostname: container-manager
+    ports:
+      - "5010:5000"  # Container management API
+    volumes:
+      - ./api-container:/app/api-container
+      - ./api-routing/container_manager.db:/app/data/container_manager.db  # Shared database
+      - /var/run/docker.sock:/var/run/docker.sock  # Docker socket for container management
+    environment:
+      - CONTAINER_DB_PATH=/app/data/container_manager.db
+      # Optional: Set PUBLIC_HOST to override auto-detection
+      # Defaults to auto-detect from request headers (localhost for local dev)
+      # - PUBLIC_HOST=your-server-hostname-or-ip
+    command: >
+      sh -c "
+      pip3 install -q -r /app/api-container/requirements.txt &&
+      cd /app &&
+      python3 -m uvicorn api-container.core.container_api:app --host 0.0.0.0 --port 5000 --reload
+      "
+    networks:
+      - lab_network
+    restart: unless-stopped
+
+  ##################################################
+  # UI Server (Development mode with hot reload)
+  ##################################################
+  ui:
+    image: node:20
+    container_name: netstream-ui
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./netstream2/ui:/app
+      - /app/node_modules  # Prevent overwriting node_modules
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true  # For file watching in Docker
+    command: >
+      sh -c "
+      npm install &&
+      npm run dev -- --host 0.0.0.0
+      "
+    networks:
+      - lab_network
+    restart: unless-stopped
+
+networks:
+  lab_network:
+    name: netstream_lab_builder_network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.70.0/24
+          gateway: 192.168.70.1

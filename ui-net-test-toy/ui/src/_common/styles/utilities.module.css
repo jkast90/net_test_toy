@@ -1,0 +1,289 @@
+/* Utility classes for common patterns across Netstream */
+/* Consolidated from multiple utility files */
+
+/* ========== Layout Utilities ========== */
+.centerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ========== Flexbox Utilities ========== */
+.flex {
+  display: flex;
+}
+
+.flexWrap {
+  flex-wrap: wrap;
+}
+
+/* ========== Common Component Patterns ========== */
+
+/* ========== Card Component System ========== */
+
+/* Base card - foundation for all card-like components */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-dark);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  transition: var(--transition-base);
+}
+
+/* Card hover effects */
+.cardHover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cardHoverScale:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Card content utilities */
+.cardHeader {
+  padding: var(--space-4) var(--space-4) var(--space-2);
+  border-bottom: 1px solid var(--accent-dark);
+}
+
+.cardBody {
+  padding: var(--space-4);
+}
+
+.cardFooter {
+  padding: var(--space-2) var(--space-4) var(--space-4);
+  border-top: 1px solid var(--accent-dark);
+}
+
+/* ========== Button System ========== */
+
+/* Base button - foundation for all buttons */
+.btn {
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  border-radius: var(--radius-md, 6px);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--duration-normal, 0.2s) ease;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  font-family: "Raleway", "Helvetica Neue", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-decoration: none; /* For link buttons */
+}
+
+/* Decorative gradient border on hover */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-md, 6px);
+  padding: 1px;
+  background: linear-gradient(45deg, var(--accent-light), var(--accent));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn:hover:not(:disabled)::before {
+  opacity: 0.3;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ========== Input System ========== */
+
+/* Base input - foundation for all inputs */
+.input,
+.textarea,
+.select {
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border: 1px solid var(--accent-dark);
+  border-radius: var(--radius-sm, 4px);
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: all var(--duration-normal, 0.2s) ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--accent-light);
+  box-shadow: 0 0 0 2px rgba(var(--accent-rgb, 120, 113, 108), 0.2);
+}
+
+.input:disabled,
+.textarea:disabled,
+.select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--bg-secondary);
+}
+
+/* Input specific styles */
+.input {
+  height: 2.5rem;
+  line-height: 1.5;
+}
+
+/* Textarea specific styles */
+.textarea {
+  min-height: 4rem;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* Select specific styles */
+.select {
+  height: 2.5rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23786f6c' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3, 0.75rem) center;
+  background-size: 12px;
+  padding-right: calc(var(--space-3, 0.75rem) * 3);
+}
+
+/* Input states */
+.inputError,
+.textareaError,
+.selectError {
+  border-color: var(--btn-delete-bg);
+}
+
+.inputError:focus,
+.textareaError:focus,
+.selectError:focus {
+  border-color: var(--btn-delete-bg);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+}
+
+.inputSuccess,
+.textareaSuccess,
+.selectSuccess {
+  border-color: var(--btn-link-bg);
+}
+
+.inputSuccess:focus,
+.textareaSuccess:focus,
+.selectSuccess:focus {
+  border-color: var(--btn-link-bg);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+/* ========== Position Utilities ========== */
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+.sticky {
+  position: sticky;
+}
+
+/* ========== Display Utilities ========== */
+.block {
+  display: block;
+}
+.inline {
+  display: inline;
+}
+
+/* Form sizing utilities */
+.narrowForm div {
+  width: 150px;
+}
+
+/* ========== Tooltip Utilities ========== */
+.tooltip {
+  position: absolute;
+  background-color: var(--nav-bg);
+  color: var(--text);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--accent-dark);
+  font-size: var(--text-xs);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: var(--z-popup);
+  transform: translateX(-50%);
+  box-shadow: var(--shadow);
+}
+
+/* ========== Text Utilities ========== */
+
+/* Text transforms */
+.uppercase {
+  text-transform: uppercase;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+
+/* ========== Border Utilities ========== */
+.border {
+  border: 1px solid var(--accent-dark);
+}
+.borderTop {
+  border-top: 1px solid var(--accent-dark);
+}
+.borderBottom {
+  border-bottom: 1px solid var(--accent-dark);
+}
+
+/* Border radius utilities */
+.rounded {
+  border-radius: var(--radius-sm);
+}
+
+/* ========== Shadow Utilities ========== */
+.shadow {
+  box-shadow: var(--shadow);
+}
+
+/* ========== User Select ========== */
+.selectAll {
+  user-select: all;
+}

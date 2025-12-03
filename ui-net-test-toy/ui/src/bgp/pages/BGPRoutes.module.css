@@ -1,0 +1,124 @@
+.container {
+  padding: 1rem;
+  padding-top: 4.5rem;
+  padding-bottom: 180px;
+  background: var(--nav-bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.sectionHeader {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  border-bottom: 2px solid var(--accent-light);
+  padding-bottom: 0.5rem;
+  color: var(--accent-light);
+  gap: 1rem;
+  align-items: center;
+}
+
+.panel {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-dark);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.input {
+  padding: 0.5rem;
+  border: 1px solid var(--accent-dark);
+  border-radius: 4px;
+  background: var(--nav-bg);
+  color: var(--text);
+  flex: 1;
+  min-width: 200px;
+}
+
+.select {
+  padding: 0.5rem;
+  border: 1px solid var(--accent-dark);
+  border-radius: 4px;
+  background: var(--nav-bg);
+  color: var(--text);
+  min-width: 150px;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-weight: 500;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--accent-dark);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.buttonDanger {
+  background: #dc2626;
+}
+
+.buttonDanger:hover {
+  background: #b91c1c;
+}
+
+.error {
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid #ef4444;
+  border-radius: 4px;
+  color: #ef4444;
+  margin-bottom: 1rem;
+}
+
+.loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.routeList {
+  margin-top: 2rem;
+}
+
+.routeList h3 {
+  color: var(--accent-light);
+  margin-bottom: 1rem;
+}
+
+.routeCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.routeCardHeader strong {
+  color: var(--text);
+}
+
+.row {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.cell strong {
+  color: var(--accent-light);
+  margin-right: 0.5rem;
+}

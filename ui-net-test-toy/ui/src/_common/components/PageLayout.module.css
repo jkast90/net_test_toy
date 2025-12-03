@@ -1,0 +1,8 @@
+.container {
+  padding: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 40px;
+  background: var(--nav-bg);
+  color: var(--text);
+  min-height: 100vh;
+}

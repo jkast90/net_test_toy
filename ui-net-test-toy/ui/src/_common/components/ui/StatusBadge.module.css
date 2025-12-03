@@ -1,0 +1,34 @@
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.success {
+  background-color: var(--success, #28a745);
+  color: white;
+}
+
+.error {
+  background-color: var(--error, #dc3545);
+  color: white;
+}
+
+.warning {
+  background-color: var(--warning, #ffc107);
+  color: #212529;
+}
+
+.info {
+  background-color: var(--info, #17a2b8);
+  color: white;
+}
+
+.default {
+  background-color: var(--border, #6c757d);
+  color: white;
+}

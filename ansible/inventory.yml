@@ -1,0 +1,8 @@
+all:
+  hosts:
+    raspberry_pi:
+      ansible_host: 192.168.50.9
+      ansible_user: jkast
+      # Wired interface for GRE tunnel
+      tunnel_interface: eth0
+      tunnel_local_ip: 10.0.0.2

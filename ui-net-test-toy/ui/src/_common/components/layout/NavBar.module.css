@@ -1,0 +1,184 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background: var(--nav-bg);
+  color: var(--text);
+  box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+/* Fixed width navbar styling */
+body.force-fixed-width .navbar {
+  left: 50%;
+  right: auto;
+  width: var(--fixed-width, 425px);
+  transform: translateX(-50%);
+  max-width: 100vw;
+}
+
+/* Left section */
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+/* Right section */
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar .logo {
+  height: 58px !important;
+  width: auto !important;
+  min-height: 40px !important;
+  margin-right: 1rem;
+  margin-top: -8px;
+  margin-bottom: -16px;
+  border-radius: 8px;
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+}
+
+.logoLink {
+  display: inline-block;
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  color: inherit !important;
+}
+
+.logoLink:hover,
+.logoLink:focus,
+.logoLink:visited,
+.logoLink:active,
+.logoLink:link {
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  color: inherit !important;
+}
+
+/* Remove global link underline effect for logo link */
+.logoLink::after {
+  display: none !important;
+}
+
+/* Navigation links */
+.link {
+  text-decoration: none;
+  color: var(--accent-dark);
+  font-weight: 500;
+}
+
+/* Remove global link underline effect for navbar links, but not active ones */
+.link:not(.active)::after {
+  display: none !important;
+}
+
+.active {
+  color: var(--text);
+  position: relative;
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-dark);
+  border-radius: 2px;
+  box-shadow:
+    -4px 2px 8px var(--accent-dark),
+    4px 2px 8px var(--accent-dark),
+    0 4px 12px var(--accent-dark);
+}
+
+/* Right section */
+/* team button style */
+.navRight button,
+.toggle {
+  background: transparent;
+  border: 1px solid var(--accent-dark);
+  color: var(--accent-dark);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Utility buttons (telemetry, bug report) */
+.utilityButton:hover {
+  background: var(--accent-light);
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* Search input */
+/* NavBar-specific banner positioning and layout */
+.banner {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--accent);
+  padding: 0.5rem;
+  z-index: calc(var(--z-ui) + 10);
+  gap: 1rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* NavBar-specific close button positioning */
+.bannerClose {
+  position: absolute;
+  right: 1rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+/* Type variants - compose from shared */
+/* Ensure no underline on logo link - global override */
+a.logoLink,
+a.logoLink:hover,
+a.logoLink:focus,
+a.logoLink:visited,
+a.logoLink:active,
+a.logoLink:link {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* NavBar-specific mobile overrides that can't be generalized */
+body.force-mobile-view .navbar {
+  /* Keep specific positioning override for fixed navbar */
+  max-width: 425px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  right: auto !important;
+  width: 425px !important;
+}

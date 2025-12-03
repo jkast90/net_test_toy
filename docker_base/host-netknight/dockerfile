@@ -1,0 +1,19 @@
+# host-netknight: Host container with NetKnight API for network testing
+FROM python-base
+
+WORKDIR /app
+
+# Copy NetKnight API code
+COPY api-netknight /app/api-netknight
+
+# Install NetKnight package
+RUN cd /app/api-netknight && pip3 install --break-system-packages -q -e .
+
+# Copy entrypoint script
+COPY docker_base/host-netknight/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Expose NetKnight API port
+EXPOSE 8000
+
+CMD ["/entrypoint.sh"]

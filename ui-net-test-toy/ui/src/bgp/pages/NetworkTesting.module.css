@@ -1,0 +1,189 @@
+.container {
+  padding: 2rem;
+  color: var(--text);
+}
+
+.header {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.tabNav {
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  color: var(--text-secondary);
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab.active {
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.badge {
+  margin-left: 0.5rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 12px;
+  background-color: var(--success);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  gap: 2rem;
+}
+
+.formGrid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.formGrid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.presetSection {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: var(--bg);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.presetTitle {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.presetGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.presetButton {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 400;
+  transition: all 0.2s;
+}
+
+.presetButton:hover {
+  background-color: var(--bg);
+}
+
+.presetButton.selected {
+  border: 2px solid var(--accent);
+  background-color: var(--accent-dark);
+  font-weight: 600;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.outputContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.outputPanel {
+  flex: 1;
+  font-family: monospace;
+  font-size: 0.875rem;
+  background-color: var(--bg);
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  overflow-y: auto;
+  min-height: 200px;
+  max-height: 400px;
+}
+
+.outputLine {
+  margin-bottom: 0.25rem;
+  word-wrap: break-word;
+}
+
+.emptyOutput {
+  color: var(--text-secondary);
+}
+
+.testItem:hover {
+  background-color: var(--bg);
+}
+
+.monospace {
+  font-family: monospace;
+  font-size: 0.75rem;
+}
+
+.hostCard.running {
+  background-color: var(--card-bg);
+}
+
+.hostCard.error {
+  background-color: var(--error-bg);
+}
+
+.hostName {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.hostMeta {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}

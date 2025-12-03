@@ -1,0 +1,135 @@
+.container {
+  padding: 1rem;
+  padding-top: 4.5rem; /* Account for navbar */
+  padding-bottom: 180px;
+  background: var(--nav-bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.sectionHeader {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  border-bottom: 2px solid var(--accent-light);
+  padding-bottom: 0.5rem;
+  color: var(--accent-light);
+  gap: 1rem;
+  align-items: center;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  color: var(--text);
+  margin-top: 1rem;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--accent-dark);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.table th:last-child,
+.table td:last-child {
+  border-right: none;
+}
+
+.table th {
+  background: var(--group-header);
+  color: var(--accent-light);
+  font-weight: 600;
+  position: sticky;
+  top: 60px;
+  z-index: 10;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.backendSelector label {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.backendSelector select {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--accent-dark);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.error {
+  color: #dc2626;
+  padding: 1rem;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid #dc2626;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.loading {
+  padding: 1rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+  /* max-width: 600px; */
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.formGroup label {
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.formGroup input,
+.formGroup select {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--accent-dark);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: var(--accent-light);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 0.5rem;
+}

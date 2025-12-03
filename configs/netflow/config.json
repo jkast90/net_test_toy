@@ -1,0 +1,9 @@
+{
+    "enabled": true,
+    "collector_address": "192.168.1.100",
+    "collector_port": 2055,
+    "version": 9,
+    "sampling_rate": 1,
+    "active_timeout": 60,
+    "inactive_timeout": 15
+}

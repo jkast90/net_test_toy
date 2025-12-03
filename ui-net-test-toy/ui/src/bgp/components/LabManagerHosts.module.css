@@ -1,0 +1,76 @@
+.section {
+  margin-bottom: 3rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.headerContent h2 {
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+
+.headerContent p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 0.5rem;
+}
+
+.cardHeader h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.statusIndicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.statusIndicator.connected {
+  background: var(--success);
+}
+
+.statusIndicator.error {
+  background: var(--error);
+}
+
+.statusIndicator.disconnected {
+  background: var(--text-muted);
+}
+
+.statusText {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.url {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.errorText {
+  font-size: 0.75rem;
+  color: var(--error);
+  margin-bottom: 1rem;
+}

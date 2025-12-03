@@ -1,0 +1,58 @@
+FROM debian:bookworm
+
+# Install FRR build dependencies + gRPC support + RPKI support
+RUN apt-get update && \
+    apt-get install -y \
+    git build-essential autoconf automake libtool \
+    libprotobuf-c-dev protobuf-c-compiler \
+    libgrpc++-dev libgrpc-dev protobuf-compiler-grpc \
+    bison flex libjson-c-dev libpam0g-dev \
+    libc-ares-dev python3-dev python3-sphinx \
+    install-info libsnmp-dev perl libcap-dev \
+    texinfo pkg-config libpcre2-dev libreadline-dev \
+    libelf-dev libyang2 libyang2-dev \
+    librtr-dev librtr0 libssh-dev \
+    iproute2 iputils-ping net-tools tcpdump procps python3-pip \
+    ca-certificates curl iptables softflowd \
+    && apt-get clean
+
+# Clone FRR source
+RUN git clone --depth 1 --branch stable/9.1 https://github.com/FRRouting/frr.git /tmp/frr
+
+# Build FRR with gRPC and RPKI enabled
+RUN cd /tmp/frr && \
+    ./bootstrap.sh && \
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc/frr \
+        --localstatedir=/var/run/frr \
+        --enable-grpc \
+        --enable-rpki \
+        --enable-multipath=64 \
+        --enable-user=frr \
+        --enable-group=frr \
+        --enable-vty-group=frrvty && \
+    make -j$(nproc) && \
+    make install && \
+    mkdir -p /usr/share/frr && \
+    cp /tmp/frr/grpc/frr-northbound.proto /usr/share/frr/ && \
+    cd / && rm -rf /tmp/frr
+
+# Install Python gRPC tools BEFORE generating bindings
+RUN pip3 install --break-system-packages grpcio grpcio-tools protobuf
+
+# Generate Python gRPC bindings for FRR
+RUN mkdir -p /usr/local/lib/frr-grpc && \
+    python3 -m grpc_tools.protoc \
+        --python_out=/usr/local/lib/frr-grpc \
+        --grpc_python_out=/usr/local/lib/frr-grpc \
+        -I/usr/share/frr \
+        /usr/share/frr/frr-northbound.proto
+
+# Create FRR user and directories
+RUN groupadd -r -g 92 frr && \
+    groupadd -r -g 85 frrvty && \
+    useradd -r -g frr -G frrvty -u 92 -s /bin/false frr && \
+    mkdir -p /var/log/frr /etc/frr /var/run/frr && \
+    chown -R frr:frr /var/log/frr /etc/frr /var/run/frr && \
+    chmod 775 /etc/frr

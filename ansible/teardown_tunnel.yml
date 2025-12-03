@@ -1,0 +1,21 @@
+---
+- name: Remove GRE tunnel from Raspberry Pi
+  hosts: raspberry_pi
+  become: yes
+  vars:
+    tunnel_name: gre-netstream
+
+  tasks:
+    - name: Bring tunnel interface down
+      command: ip link set {{ tunnel_name }} down
+      ignore_errors: yes
+
+    - name: Remove GRE tunnel
+      command: ip tunnel del {{ tunnel_name }}
+      ignore_errors: yes
+      register: tunnel_delete
+
+    - name: Display result
+      debug:
+        msg: "Tunnel {{ tunnel_name }} removed successfully"
+      when: tunnel_delete.rc == 0

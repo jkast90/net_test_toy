@@ -1,0 +1,104 @@
+.section {
+  margin-top: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.headerContent h2 {
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+
+.headerContent p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.select {
+  padding: 0.5rem;
+  background: var(--input-bg);
+  border: 1px solid var(--accent-dark);
+  border-radius: 4px;
+  color: var(--text);
+}
+
+.hostGroup {
+  margin-bottom: 2rem;
+}
+
+.hostName {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.daemonHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+.daemonName {
+  margin: 0;
+}
+
+.daemonTypeBadge {
+  padding: 0.25rem 0.5rem;
+  color: white;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.statusRow {
+  margin-bottom: 1rem;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.label {
+  color: var(--text-muted);
+}
+
+.networksSection {
+  margin-bottom: 1rem;
+}
+
+.networksLabel {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.networkTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.networkTag {
+  padding: 0.125rem 0.5rem;
+  background: var(--accent-dark);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-family: monospace;
+}

@@ -1,0 +1,298 @@
+/* Consolidated button styles for LinkTapestry */
+
+/* ========== Base Button Styles ========== */
+.button {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  font-family: "Raleway", "Helvetica Neue", sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  position: relative;
+  letter-spacing: 0.3px;
+  box-shadow: 0 1px 3px var(--shadow-color);
+  background-color: var(--button);
+  color: var(--text);
+  min-height: 28px;
+  white-space: nowrap;
+  line-height: 1;
+  text-align: center;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  background-color: var(--accent-light);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px var(--shadow-color);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Decorative gradient border on hover */
+.button::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-md);
+  padding: 1px;
+  background: linear-gradient(45deg, var(--accent-light), var(--accent));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--duration-normal) ease;
+}
+
+.button:hover::before {
+  opacity: 0.3;
+}
+
+/* ========== Size Variants ========== */
+.buttonSm {
+  padding: var(--space-1) var(--space-2);
+  font-size: 0.75rem;
+  min-height: 24px !important;
+  max-height: 24px !important;
+  height: 24px !important;
+  line-height: 1;
+}
+
+.buttonLg {
+  padding: var(--space-3) var(--space-6);
+  font-size: 1rem;
+  min-height: 44px;
+}
+
+/* ========== Color Variants ========== */
+.buttonPrimary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+}
+
+.buttonPrimary:hover:not(:disabled) {
+  background-color: var(--btn-primary-hover);
+}
+
+.buttonSecondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--btn-secondary-border);
+}
+
+.buttonSecondary:hover:not(:disabled) {
+  background-color: var(--btn-secondary-hover);
+}
+
+.buttonDelete {
+  background-color: var(--btn-delete-bg);
+  color: var(--btn-delete-text);
+}
+
+.buttonDelete:hover:not(:disabled) {
+  background-color: var(--btn-delete-hover);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(184, 84, 80, 0.25);
+  border-color: var(--btn-delete-hover);
+}
+
+.buttonEdit {
+  background-color: var(--btn-edit-bg);
+  color: var(--btn-edit-text);
+}
+
+.buttonEdit:hover:not(:disabled) {
+  background-color: var(--btn-edit-hover);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(107, 143, 163, 0.25);
+  border-color: var(--btn-edit-hover);
+}
+
+.buttonLink {
+  background-color: var(--btn-link-bg);
+  color: var(--btn-link-text);
+}
+
+.buttonLink:hover:not(:disabled) {
+  background-color: var(--btn-link-hover);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(122, 155, 111, 0.25);
+  border-color: var(--btn-link-hover);
+}
+
+.buttonUnlink {
+  background-color: var(--btn-unlink-bg);
+  color: var(--btn-unlink-text);
+}
+
+.buttonUnlink:hover:not(:disabled) {
+  background-color: var(--btn-unlink-hover);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(212, 146, 77, 0.25);
+  border-color: var(--btn-unlink-hover);
+}
+
+/* ========== Special Button Types ========== */
+
+/* Ghost button - transparent with border */
+.buttonGhost {
+  background-color: transparent;
+  border: 1px solid var(--accent);
+  color: var(--text);
+}
+
+.buttonGhost:hover:not(:disabled) {
+  background-color: var(--accent);
+  color: var(--text);
+}
+
+/* Text button - no background or border */
+.buttonText {
+  background-color: transparent;
+  border: none;
+  color: var(--accent);
+  box-shadow: none;
+  padding: var(--space-1) var(--space-2);
+}
+
+.buttonText:hover:not(:disabled) {
+  background-color: transparent;
+  color: var(--accent-light);
+  transform: none;
+  text-decoration: underline;
+}
+
+/* Icon button - square aspect ratio */
+.buttonIcon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  min-width: unset;
+}
+
+.buttonIcon.buttonSm {
+  width: 28px;
+  height: 28px;
+}
+
+.buttonIcon.buttonLg {
+  width: 44px;
+  height: 44px;
+}
+
+/* ========== Button Groups ========== */
+.buttonGroup {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.buttonGroupVertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.buttonGroupVertical .button {
+  width: 100%;
+}
+
+/* Prompt/Dialog button container */
+.prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+/* ========== Add Group Button (Sticky) ========== */
+.addGroupSticky {
+  position: fixed;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999; /* Same as navbar, sub-navbar, and footer */
+  background: var(--nav-bg);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--group-header);
+  width: 100%;
+  max-width: 200px;
+  text-align: center;
+  opacity: 0.9;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+}
+
+.addGroupButton {
+  font-size: 1.1rem;
+  padding: var(--space-2) var(--space-4);
+  border: 2px solid var(--accent-light);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: var(--transition-base);
+  width: 100%;
+}
+
+.addGroupButton:hover {
+  background: var(--accent-light);
+  transform: translateY(-1px);
+}
+
+/* ========== Loading State ========== */
+.buttonLoading {
+  position: relative;
+  color: transparent;
+}
+
+.buttonLoading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* ========== Full Width Variant ========== */
+.buttonBlock {
+  width: 100%;
+}
+
+/* ========== Rounded Variants ========== */
+.buttonRounded {
+  border-radius: var(--radius-2xl);
+}
+
+.buttonSquare {
+  border-radius: 0;
+}

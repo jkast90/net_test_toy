@@ -1,0 +1,646 @@
+/* Theme definitions for Netstream */
+
+/* Clean Blue - Dark (Original theme) */
+:root[data-theme="clean-blue-dark"] {
+  --nav-bg: #0a1e3c;
+  --card-bg: #132d52;
+  --background: #132d52;
+  --input-bg: #0e2949;
+  --text: #e0f2ff;
+  --text-light: #e0f2ff;
+  --text-header: #ffffff;
+  --accent: #1c61c1;
+  --accent-dark: #1458aa;
+  --accent-light: #44a0e2;
+  --button: #1458aa;
+  --group-header: #0e2949;
+  --shadow-color: #003296;
+  --title-color: rgba(0, 0, 0, 0.55);
+  --tile-glow: rgba(101, 170, 255, 0.35);
+  --link-color: #ffffff;
+  --link-hover: #e0f2ff;
+
+  /* Button colors */
+  --btn-delete-bg: #dc2626;
+  --btn-delete-hover: #b91c1c;
+  --btn-delete-text: #ffffff;
+
+  --btn-edit-bg: #1c61c1;
+  --btn-edit-hover: #1458aa;
+  --btn-edit-text: #ffffff;
+
+  --btn-link-bg: #10b981;
+  --btn-link-hover: #059669;
+  --btn-link-text: #ffffff;
+
+  --btn-unlink-bg: #f59e0b;
+  --btn-unlink-hover: #d97706;
+  --btn-unlink-text: #ffffff;
+
+  --btn-primary-bg: var(--button);
+  --btn-primary-hover: var(--accent-dark);
+  --btn-primary-text: #ffffff;
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-hover: var(--card-bg);
+  --btn-secondary-text: var(--text);
+  --btn-secondary-border: var(--accent-dark);
+
+  /* Type badges */
+  --type-notes-bg: #22c55e;
+  --type-notes-text: #ffffff;
+  --type-links-bg: #3b82f6;
+  --type-links-text: #ffffff;
+}
+
+/* Clean Blue - Light */
+:root[data-theme="clean-blue-light"] {
+  --nav-bg: #f5f8fc;
+  --card-bg: #ffffff;
+  --background: #ffffff;
+  --input-bg: #f5f8fc;
+  --text: #0a1e3c;
+  --text-light: #132d52;
+  --text-header: #051224;
+  --accent: #1c61c1;
+  --accent-dark: #1458aa;
+  --accent-light: #44a0e2;
+  --button: #1458aa;
+  --group-header: #e8f1fb;
+  --shadow-color: rgba(0, 50, 150, 0.1);
+  --title-color: rgba(220, 230, 245, 0.85);
+  --tile-glow: rgba(101, 170, 255, 0.2);
+  --link-color: #1458aa;
+  --link-hover: #0e3d7a;
+
+  /* Button colors */
+  --btn-delete-bg: #dc2626;
+  --btn-delete-hover: #b91c1c;
+  --btn-delete-text: #ffffff;
+
+  --btn-edit-bg: #1c61c1;
+  --btn-edit-hover: #1458aa;
+  --btn-edit-text: #ffffff;
+
+  --btn-link-bg: #10b981;
+  --btn-link-hover: #059669;
+  --btn-link-text: #ffffff;
+
+  --btn-unlink-bg: #f59e0b;
+  --btn-unlink-hover: #d97706;
+  --btn-unlink-text: #ffffff;
+
+  --btn-primary-bg: var(--button);
+  --btn-primary-hover: var(--accent-dark);
+  --btn-primary-text: #ffffff;
+
+  --btn-secondary-bg: #ffffff;
+  --btn-secondary-hover: #f5f8fc;
+  --btn-secondary-text: var(--text);
+  --btn-secondary-border: var(--accent-light);
+
+  /* Type badges */
+  --type-notes-bg: #10b981;
+  --type-notes-text: #ffffff;
+  --type-links-bg: #2563eb;
+  --type-links-text: #ffffff;
+}
+
+/* Netstream - Dark */
+:root[data-theme="netstream-dark"] {
+  --nav-bg: #1f1b2e;
+  --card-bg: #2a2541;
+  --background: #2a2541;
+  --input-bg: #252036;
+  --text: #e8dfd6;
+  --text-light: #d4c5b9;
+  --text-header: #f5ede4;
+  --accent: #9b6b9e;
+  --accent-dark: #7a5a7d;
+  --accent-light: #d4a5d9;
+  --button: #9b6b9e;
+  --group-header: #252036;
+  --shadow-color: rgba(155, 107, 158, 0.2);
+  --title-color: rgba(31, 27, 46, 0.85);
+  --tile-glow: rgba(212, 165, 217, 0.25);
+  --link-color: #f5ede4;
+  --link-hover: #d4a5d9;
+
+  /* Button colors - Natural dye palette */
+  --btn-delete-bg: #b85450;
+  --btn-delete-hover: #a03937;
+  --btn-delete-text: #f5ede4;
+
+  --btn-edit-bg: #6b8fa3;
+  --btn-edit-hover: #567991;
+  --btn-edit-text: #f5ede4;
+
+  --btn-link-bg: #7a9b6f;
+  --btn-link-hover: #648757;
+  --btn-link-text: #f5ede4;
+
+  --btn-unlink-bg: #d4924d;
+  --btn-unlink-hover: #bc7c38;
+  --btn-unlink-text: #f5ede4;
+
+  --btn-primary-bg: var(--button);
+  --btn-primary-hover: var(--accent-dark);
+  --btn-primary-text: #f5ede4;
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-hover: var(--card-bg);
+  --btn-secondary-text: var(--text);
+  --btn-secondary-border: var(--accent-dark);
+
+  /* Type badges */
+  --type-notes-bg: #7a9b6f;
+  --type-notes-text: #ffffff;
+  --type-links-bg: #6b8fa3;
+  --type-links-text: #ffffff;
+}
+
+/* Netstream - Light */
+:root[data-theme="netstream-light"] {
+  --nav-bg: #fdfbf7;
+  --card-bg: #ffffff;
+  --background: #ffffff;
+  --input-bg: #fdfbf7;
+  --text: #3a2f47;
+  --text-light: #5a4d68;
+  --text-header: #2a1f35;
+  --accent: #8e5f91;
+  --accent-dark: #744a77;
+  --accent-light: #b991bc;
+  --button: #8e5f91;
+  --group-header: #f7f3ed;
+  --shadow-color: rgba(116, 74, 119, 0.15);
+  --title-color: rgba(247, 243, 237, 0.85);
+  --tile-glow: rgba(185, 145, 188, 0.2);
+  --link-color: #744a77;
+  --link-hover: #5a3a5d;
+
+  /* Button colors - Garden dye palette */
+  --btn-delete-bg: #c26460;
+  --btn-delete-hover: #a84945;
+  --btn-delete-text: #fdfbf7;
+
+  --btn-edit-bg: #7899ab;
+  --btn-edit-hover: #628399;
+  --btn-edit-text: #fdfbf7;
+
+  --btn-link-bg: #88a879;
+  --btn-link-hover: #729661;
+  --btn-link-text: #fdfbf7;
+
+  --btn-unlink-bg: #dea25c;
+  --btn-unlink-hover: #c68c47;
+  --btn-unlink-text: #fdfbf7;
+
+  --btn-primary-bg: var(--button);
+  --btn-primary-hover: var(--accent-dark);
+  --btn-primary-text: #fdfbf7;
+
+  --btn-secondary-bg: #ffffff;
+  --btn-secondary-hover: #fdfbf7;
+  --btn-secondary-text: var(--text);
+  --btn-secondary-border: var(--accent-light);
+
+  /* Type badges */
+  --type-notes-bg: #88a879;
+  --type-notes-text: #ffffff;
+  --type-links-bg: #7899ab;
+  --type-links-text: #ffffff;
+}
+
+/* High Contrast - Light */
+:root[data-theme="high-contrast-light"] {
+  --nav-bg: #ffffff;
+  --card-bg: #ffffff;
+  --background: #ffffff;
+  --input-bg: #f8f8f8;
+  --text: #000000;
+  --text-light: #000000;
+  --text-header: #000000;
+  --accent: #0000ff;
+  --accent-dark: #000080;
+  --accent-light: #4040ff;
+  --button: #000080;
+  --group-header: #f8f8f8;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --title-color: rgba(248, 248, 248, 0.9);
+  --tile-glow: rgba(0, 0, 255, 0.3);
+  --link-color: #0000ff;
+  --link-hover: #000080;
+
+  /* Button colors - High contrast */
+  --btn-delete-bg: #ff0000;
+  --btn-delete-hover: #cc0000;
+  --btn-delete-text: #ffffff;
+
+  --btn-edit-bg: #0000ff;
+  --btn-edit-hover: #000080;
+  --btn-edit-text: #ffffff;
+
+  --btn-link-bg: #008000;
+  --btn-link-hover: #006000;
+  --btn-link-text: #ffffff;
+
+  --btn-unlink-bg: #ff8000;
+  --btn-unlink-hover: #cc6600;
+  --btn-unlink-text: #ffffff;
+
+  --btn-primary-bg: var(--button);
+  --btn-primary-hover: var(--accent-dark);
+  --btn-primary-text: #ffffff;
+
+  --btn-secondary-bg: #ffffff;
+  --btn-secondary-hover: #f0f0f0;
+  --btn-secondary-text: var(--text);
+  --btn-secondary-border: #000000;
+
+  /* Type badges */
+  --type-notes-bg: #008000;
+  --type-notes-text: #ffffff;
+  --type-links-bg: #0000ff;
+  --type-links-text: #ffffff;
+}
+
+/* High Contrast - Dark */
+:root[data-theme="high-contrast-dark"] {
+  --nav-bg: #000000;
+  --card-bg: #000000;
+  --background: #000000;
+  --input-bg: #080808;
+  --text: #ffffff;
+  --text-light: #ffffff;
+  --text-header: #ffffff;
+  --accent: #00ffff;
+  --accent-dark: #00cccc;
+  --accent-light: #40ffff;
+  --button: #00cccc;
+  --group-header: #080808;
+  --shadow-color: rgba(255, 255, 255, 0.5);
+  --title-color: rgba(8, 8, 8, 0.9);
+  --tile-glow: rgba(0, 255, 255, 0.4);
+  --link-color: #00ffff;
+  --link-hover: #ffffff;
+
+  /* Button colors - High contrast dark */
+  --btn-delete-bg: #ff0000;
+  --btn-delete-hover: #ff4040;
+  --btn-delete-text: #ffffff;
+
+  --btn-edit-bg: #00ffff;
+  --btn-edit-hover: #40ffff;
+  --btn-edit-text: #000000;
+
+  --btn-link-bg: #00ff00;
+  --btn-link-hover: #40ff40;
+  --btn-link-text: #000000;
+
+  --btn-unlink-bg: #ffff00;
+  --btn-unlink-hover: #ffff40;
+  --btn-unlink-text: #000000;
+
+  --btn-primary-bg: var(--button);
+  --btn-primary-hover: var(--accent-light);
+  --btn-primary-text: #000000;
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-hover: #080808;
+  --btn-secondary-text: var(--text);
+  --btn-secondary-border: #ffffff;
+
+  /* Type badges */
+  --type-notes-bg: #00ff00;
+  --type-notes-text: #000000;
+  --type-links-bg: #00ffff;
+  --type-links-text: #000000;
+}
+
+/* Forest - Light */
+:root[data-theme="forest-light"] {
+  --nav-bg: #f8fbf6;
+  --card-bg: #ffffff;
+  --background: #ffffff;
+  --input-bg: #f8fbf6;
+  --text: #1f2937;
+  --text-light: #374151;
+  --text-header: #111827;
+  --accent: #059669;
+  --accent-dark: #047857;
+  --accent-light: #34d399;
+  --button: #047857;
+  --group-header: #f0fdf4;
+  --shadow-color: rgba(4, 120, 87, 0.15);
+  --title-color: rgba(240, 253, 244, 0.85);
+  --tile-glow: rgba(52, 211, 153, 0.2);
+  --link-color: #047857;
+  --link-hover: #065f46;
+
+  /* Button colors - Forest green palette */
+  --btn-delete-bg: #dc2626;
+  --btn-delete-hover: #b91c1c;
+  --btn-delete-text: #ffffff;
+
+  --btn-edit-bg: #059669;
+  --btn-edit-hover: #047857;
+  --btn-edit-text: #ffffff;
+
+  --btn-link-bg: #10b981;
+  --btn-link-hover: #059669;
+  --btn-link-text: #ffffff;
+
+  --btn-unlink-bg: #f59e0b;
+  --btn-unlink-hover: #d97706;
+  --btn-unlink-text: #ffffff;
+
+  --btn-primary-bg: var(--button);
+  --btn-primary-hover: var(--accent-dark);
+  --btn-primary-text: #ffffff;
+
+  --btn-secondary-bg: #ffffff;
+  --btn-secondary-hover: #f8fbf6;
+  --btn-secondary-text: var(--text);
+  --btn-secondary-border: var(--accent-light);
+
+  /* Type badges */
+  --type-notes-bg: #10b981;
+  --type-notes-text: #ffffff;
+  --type-links-bg: #059669;
+  --type-links-text: #ffffff;
+}
+
+/* Forest - Dark */
+:root[data-theme="forest-dark"] {
+  --nav-bg: #0f1b0f;
+  --card-bg: #1a2e1a;
+  --background: #1a2e1a;
+  --input-bg: #14251a;
+  --text: #d1fae5;
+  --text-light: #a7f3d0;
+  --text-header: #ecfdf5;
+  --accent: #10b981;
+  --accent-dark: #059669;
+  --accent-light: #34d399;
+  --button: #10b981;
+  --group-header: #14251a;
+  --shadow-color: rgba(16, 185, 129, 0.2);
+  --title-color: rgba(15, 27, 15, 0.85);
+  --tile-glow: rgba(52, 211, 153, 0.25);
+  --link-color: #ecfdf5;
+  --link-hover: #34d399;
+
+  /* Button colors - Deep forest palette */
+  --btn-delete-bg: #dc2626;
+  --btn-delete-hover: #b91c1c;
+  --btn-delete-text: #ffffff;
+
+  --btn-edit-bg: #10b981;
+  --btn-edit-hover: #059669;
+  --btn-edit-text: #ffffff;
+
+  --btn-link-bg: #22c55e;
+  --btn-link-hover: #16a34a;
+  --btn-link-text: #ffffff;
+
+  --btn-unlink-bg: #f59e0b;
+  --btn-unlink-hover: #d97706;
+  --btn-unlink-text: #ffffff;
+
+  --btn-primary-bg: var(--button);
+  --btn-primary-hover: var(--accent-dark);
+  --btn-primary-text: #ffffff;
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-hover: var(--card-bg);
+  --btn-secondary-text: var(--text);
+  --btn-secondary-border: var(--accent-dark);
+
+  /* Type badges */
+  --type-notes-bg: #22c55e;
+  --type-notes-text: #ffffff;
+  --type-links-bg: #10b981;
+  --type-links-text: #ffffff;
+}
+
+/* Route Herald - Dark */
+:root[data-theme="routeherald-dark"] {
+  --nav-bg: #1b1b1b;
+  --card-bg: #1e1e1e;
+  --background: #121212;
+  --input-bg: #2a2a2a;
+  --text: #e0e0e0;
+  --text-light: #b0b0b0;
+  --text-header: #ffffff;
+  --accent: #0077cc;
+  --accent-dark: #005fa3;
+  --accent-light: #44a0e2;
+  --button: #0077cc;
+  --group-header: #2a2a2a;
+  --shadow-color: rgba(0, 119, 204, 0.2);
+  --title-color: rgba(27, 27, 27, 0.85);
+  --tile-glow: rgba(68, 160, 226, 0.25);
+  --link-color: #ffffff;
+  --link-hover: #44a0e2;
+
+  /* Button colors - RouteHerald BGP theme */
+  --btn-delete-bg: #dc2626;
+  --btn-delete-hover: #b91c1c;
+  --btn-delete-text: #ffffff;
+
+  --btn-edit-bg: #0077cc;
+  --btn-edit-hover: #005fa3;
+  --btn-edit-text: #ffffff;
+
+  --btn-link-bg: #10b981;
+  --btn-link-hover: #059669;
+  --btn-link-text: #ffffff;
+
+  --btn-unlink-bg: #f59e0b;
+  --btn-unlink-hover: #d97706;
+  --btn-unlink-text: #ffffff;
+
+  --btn-primary-bg: var(--button);
+  --btn-primary-hover: var(--accent-dark);
+  --btn-primary-text: #ffffff;
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-hover: var(--card-bg);
+  --btn-secondary-text: var(--text);
+  --btn-secondary-border: var(--accent-dark);
+
+  /* Type badges */
+  --type-notes-bg: #10b981;
+  --type-notes-text: #ffffff;
+  --type-links-bg: #0077cc;
+  --type-links-text: #ffffff;
+
+  /* Status colors for BGP */
+  --success: #00ff00;
+  --warning: #ffaa00;
+  --error: #ff4444;
+  --text-muted: #888888;
+}
+
+/* Route Herald - Light */
+:root[data-theme="routeherald-light"] {
+  --nav-bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --background: #f5f5f5;
+  --input-bg: #ffffff;
+  --text: #000000;
+  --text-light: #333333;
+  --text-header: #000000;
+  --accent: #00bfa5;
+  --accent-dark: #008e76;
+  --accent-light: #4dd0bf;
+  --button: #00bfa5;
+  --group-header: #eeeeee;
+  --shadow-color: rgba(0, 191, 165, 0.15);
+  --title-color: rgba(238, 238, 238, 0.85);
+  --tile-glow: rgba(77, 208, 191, 0.2);
+  --link-color: #008e76;
+  --link-hover: #00bfa5;
+
+  /* Button colors - RouteHerald light theme */
+  --btn-delete-bg: #dc2626;
+  --btn-delete-hover: #b91c1c;
+  --btn-delete-text: #ffffff;
+
+  --btn-edit-bg: #00bfa5;
+  --btn-edit-hover: #008e76;
+  --btn-edit-text: #ffffff;
+
+  --btn-link-bg: #10b981;
+  --btn-link-hover: #059669;
+  --btn-link-text: #ffffff;
+
+  --btn-unlink-bg: #f59e0b;
+  --btn-unlink-hover: #d97706;
+  --btn-unlink-text: #ffffff;
+
+  --btn-primary-bg: var(--button);
+  --btn-primary-hover: var(--accent-dark);
+  --btn-primary-text: #ffffff;
+
+  --btn-secondary-bg: #ffffff;
+  --btn-secondary-hover: #f5f5f5;
+  --btn-secondary-text: var(--text);
+  --btn-secondary-border: var(--accent-light);
+
+  /* Type badges */
+  --type-notes-bg: #10b981;
+  --type-notes-text: #ffffff;
+  --type-links-bg: #00bfa5;
+  --type-links-text: #ffffff;
+
+  /* Status colors for BGP */
+  --success: #00aa00;
+  --warning: #ff8800;
+  --error: #cc0000;
+  --text-muted: #666666;
+}
+
+/* Z-index values (theme-independent) */
+:root {
+  --z-behind: -1;
+  --z-base: 0;
+  --z-raised: 1;
+  --z-tile-base: 2;
+  --z-tile-hover: 3;
+  --z-tile-overlay: 10;
+  --z-ui-low: 50;
+  --z-tile: 100;
+  --z-ui: 500;
+  --z-subnav: 999;
+  --z-navbar: 1000;
+  --z-footer: 1000;
+  --z-button-sticky: 1001;
+  --z-dialog: 9999;
+  --z-modal: 10000;
+  --z-popup: 2000;
+  --z-tooltip: 9999;
+  --z-groups: 5000;
+
+  /* Spacing scale */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-7: 1.8rem; /* 28px */
+  --space-8: 2rem; /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-14: 3.5rem; /* 56px */
+  --space-16: 4rem; /* 64px */
+
+  /* Font size scale */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.8rem; /* 13px */
+  --text-sm2: 0.85rem; /* 14px */
+  --text-base: 0.9rem; /* 14px */
+  --text-md: 1rem; /* 16px */
+  --text-lg: 1.1rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.35rem; /* 22px */
+  --text-3xl: 1.5rem; /* 24px */
+  --text-4xl: 1.75rem; /* 28px */
+  --text-5xl: 2rem; /* 32px */
+
+  /* Line heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+
+  /* Font weights */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Animation timing */
+  --duration-fast: 0.15s;
+  --duration-normal: 0.2s;
+  --duration-slow: 0.3s;
+  --duration-slower: 0.5s;
+
+  /* Border radius scale */
+  --radius-xs: 2px;
+  --radius-xs2: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-xl2: 15px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
+  --radius-full: 9999px;
+
+  /* Shadow system */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-2xl: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /* Glow effects */
+  --glow: 0 0 10px var(--tile-glow);
+  --glow-lg: 0 0 12px var(--accent-light);
+  --glow-focus: 0 0 0 3px rgba(var(--accent-rgb, 155, 107, 158), 0.1);
+
+  /* Common transitions */
+  --transition-base: all var(--duration-normal) ease;
+  --transition-fast: all var(--duration-fast) ease;
+  --transition-slow: all var(--duration-slow) ease;
+  --transition-colors: background-color var(--duration-normal) ease,
+    color var(--duration-normal) ease;
+  --transition-transform: transform var(--duration-normal) ease;
+  --transition-opacity: opacity var(--duration-normal) ease;
+}

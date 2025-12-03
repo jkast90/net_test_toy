@@ -1,0 +1,62 @@
+.pane {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-dark);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  /* max-height: 800px; */
+}
+
+.paneHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--accent-dark);
+  background: var(--header-bg);
+  flex-shrink: 0;
+}
+
+.paneHeader[draggable="true"] {
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.paneHeader[draggable="true"]:hover {
+  background: var(--accent-dark);
+}
+
+.paneHeader[draggable="true"]:active {
+  cursor: grabbing !important;
+  background: var(--accent);
+}
+
+.paneTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.paneActions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.paneBody {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}

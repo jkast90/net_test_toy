@@ -1,0 +1,30 @@
+# frr-unified: FRR daemon + unified API in one container
+FROM bullseye-base
+
+# Copy default FRR configuration
+COPY docker_base/frr-unified/daemons /etc/frr/daemons
+COPY docker_base/frr-unified/frr.conf /etc/frr/frr.conf
+
+# Copy FlowSpec enforcer (converts FlowSpec routes to iptables rules)
+COPY docker_base/frr-unified/flowspec_enforcer.py /usr/local/bin/flowspec_enforcer.py
+RUN chmod +x /usr/local/bin/flowspec_enforcer.py
+
+# Install Python dependencies for unified API
+RUN pip3 install --break-system-packages \
+    fastapi \
+    uvicorn[standard] \
+    starlette \
+    docker
+
+WORKDIR /app
+
+# Copy unified API code
+COPY api-routing /app/api-routing
+
+# Copy entrypoint
+COPY docker_base/frr-unified/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 5000
+
+CMD ["/entrypoint.sh"]

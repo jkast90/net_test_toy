@@ -1,0 +1,58 @@
+# gobgp-unified: GoBGP daemon + unified API in one container
+FROM python-base
+
+# ---- Install Go + GoBGP + FRR (for zebra) ----------------------------------
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        git \
+        ca-certificates \
+        wget \
+        build-essential \
+        g++ \
+        python3-dev \
+        softflowd \
+        curl \
+        gnupg \
+        lsb-release \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install FRR for zebra integration
+RUN curl -s https://deb.frrouting.org/frr/keys.asc | gpg --dearmor -o /usr/share/keyrings/frr-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/frr-archive-keyring.gpg] https://deb.frrouting.org/frr $(lsb_release -s -c) frr-stable" | tee /etc/apt/sources.list.d/frr.list && \
+    apt-get update && \
+    apt-get install -y frr frr-pythontools && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Go
+RUN ARCH=$(dpkg --print-architecture) && \
+    wget https://go.dev/dl/go1.22.1.linux-${ARCH}.tar.gz && \
+    tar -C /usr/local -xzf go1.22.1.linux-${ARCH}.tar.gz && \
+    rm go1.22.1.linux-${ARCH}.tar.gz
+
+ENV PATH="/usr/local/go/bin:${PATH}" GOPATH="/root/go"
+
+# Install GoBGP
+RUN go install github.com/osrg/gobgp/v3/cmd/gobgpd@latest && \
+    go install github.com/osrg/gobgp/v3/cmd/gobgp@latest && \
+    mv /root/go/bin/gobgp* /usr/local/bin/
+
+# ---- Install Python dependencies -------------------------------------------
+RUN pip3 install --break-system-packages \
+    fastapi \
+    uvicorn[standard] \
+    starlette \
+    docker \
+    httpx
+
+WORKDIR /app
+
+# Copy unified API code
+COPY api-routing /app/api-routing
+
+# Copy entrypoint
+COPY docker_base/gobgp-unified/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 5000 50051
+
+CMD ["/entrypoint.sh"]

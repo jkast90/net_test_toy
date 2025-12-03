@@ -1,0 +1,8 @@
+zebra=yes
+bgpd=yes
+pbrd=yes
+
+# Enable gRPC northbound API
+# zebra on port 50051, bgpd on port 50052
+zebra_options=" -M grpc:50051"
+bgpd_options=" -M grpc:50052 -M bmp"

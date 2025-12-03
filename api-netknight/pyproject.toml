@@ -1,0 +1,48 @@
+# ───────────────────────────────────────────────────────────────
+# pyproject.toml – NetKnight backend
+# ───────────────────────────────────────────────────────────────
+[project]
+name            = "netknight"
+version         = "0.1.0"
+description     = "NetKnight – live-streaming network-tools API (FastAPI + WebSockets)"
+authors         = [{ name = "Jeremy Kast", email = "kastjeremy@gmail.com" }]
+readme          = "README.md"
+license         = { text = "MIT" }
+requires-python = ">=3.11"
+
+# Runtime deps
+dependencies = [
+  "fastapi>=0.112",
+  "uvicorn[standard]>=0.34",
+  "pydantic>=2.7",
+  "iperf3",
+  "rich",
+  "websocket-client",
+  "websocket-server",
+]
+
+[project.urls]
+Homepage      = "https://github.com/your-org/netknight"
+Source        = "https://github.com/your-org/netknight"
+Issues        = "https://github.com/your-org/netknight/issues"
+
+# Optional dev / test extras (install with:  `pip install -e .[dev]`)
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2",
+  "pytest-asyncio",
+  "black",
+  "ruff"
+]
+
+# ───────────────────────────────────────────────────────────────
+# Build backend
+# ───────────────────────────────────────────────────────────────
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# Tell setuptools to include the src-level package
+[tool.setuptools]
+packages = ["netknight"]
+include-package-data = false  # set true if you add data files later

@@ -1,0 +1,20 @@
+# base python docker
+FROM python:3.13-slim
+
+# Install common networking tools
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    iputils-ping \
+    traceroute \
+    iperf3 \
+    hping3 \
+    curl \
+    net-tools \
+    iproute2 \
+    softflowd \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir fastapi --index-url https://pypi.org/simple
+RUN pip install --no-cache-dir uvicorn[standard]
+RUN pip install --no-cache-dir python-multipart
+RUN pip install --no-cache-dir pydantic

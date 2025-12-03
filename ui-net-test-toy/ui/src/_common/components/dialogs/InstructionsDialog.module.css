@@ -1,0 +1,317 @@
+/* InstructionsDialog.module.css */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-out;
+  padding: 1rem;
+}
+
+.dialog {
+  background: var(--card-bg);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 900px;
+  height: 85vh;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease-out;
+  overflow: hidden;
+  position: relative;
+}
+
+.dialog::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+  opacity: 0.05;
+  animation: rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+.header {
+  padding: 1.5rem 2.5rem 1rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: white;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  text-align: center;
+  font-style: italic;
+  opacity: 0.95;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.tab {
+  background: transparent;
+  border: 2px solid transparent;
+  color: var(--text);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px 12px 0 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  margin-bottom: -1px;
+}
+
+.tab:hover {
+  background: rgba(68, 160, 226, 0.1);
+  transform: translateY(-2px);
+}
+
+.activeTab {
+  background: var(--card-bg);
+  border-color: var(--accent-light);
+  border-bottom-color: var(--card-bg);
+  color: var(--text-header);
+  transform: translateY(1px);
+}
+
+.content h2 {
+  font-size: 1.4rem;
+  color: var(--text-header);
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.emoji {
+  display: inline-block;
+  animation: wiggle 3s ease-in-out infinite;
+  font-size: 1.4rem;
+}
+
+.instruction:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(68, 160, 226, 0.15);
+}
+
+.instruction h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--accent);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.instruction p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.shortcut {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(68, 160, 226, 0.05);
+  border-radius: 8px;
+  border: 1px solid var(--accent-light);
+  transition: all 0.2s ease;
+}
+
+.shortcut:hover {
+  background: rgba(68, 160, 226, 0.1);
+  transform: scale(1.02);
+}
+
+.shortcut kbd {
+  background: var(--nav-bg);
+  color: var(--text);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--accent-dark);
+  font-family: monospace;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+.shortcut span {
+  color: var(--text);
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+/* Example buttons in instructions - override cursor and hover for disabled state */
+.contentWrapper .btn {
+  margin: 0 0.2rem;
+  vertical-align: middle;
+}
+
+.contentWrapper .btn:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.8 !important; /* Less faded for better visibility in examples */
+}
+
+.contentWrapper .btn:disabled:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.footer {
+  padding: 1rem 2rem;
+  background: var(--nav-bg);
+  border-top: 1px solid var(--accent-light);
+  text-align: center;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Custom scrollbar for content */
+.contentWrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contentWrapper::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.contentWrapper::-webkit-scrollbar-thumb {
+  background: rgba(68, 160, 226, 0.3);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.contentWrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(68, 160, 226, 0.6);
+}
+
+.contentWrapper::-webkit-scrollbar-thumb:active {
+  background: var(--accent);
+}
+
+/* Custom scrollbar for tab container */
+.tabContainer::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tabContainer::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+  margin: 0 1rem;
+}
+
+.tabContainer::-webkit-scrollbar-thumb {
+  background: rgba(68, 160, 226, 0.3);
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+.tabContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(68, 160, 226, 0.6);
+}
+
+.tabContainer::-webkit-scrollbar-thumb:active {
+  background: var(--accent);
+}

@@ -1,0 +1,84 @@
+---
+- name: Configure Raspberry Pi as GRE tunnel endpoint
+  hosts: raspberry_pi
+  become: yes
+  vars:
+    # GRE tunnel configuration
+    tunnel_name: gre-netstream
+    tunnel_local_ip: "{{ tunnel_local_ip | default('10.0.0.2') }}"
+    tunnel_remote_ip: "{{ tunnel_remote_ip | default('10.0.0.1') }}"
+    tunnel_inner_ip: "{{ tunnel_inner_ip | default('172.31.0.2') }}"
+    tunnel_inner_prefix: "{{ tunnel_inner_prefix | default('30') }}"
+    gre_key: "{{ gre_key | default(omit) }}"
+
+  tasks:
+    - name: Ensure iproute2 is installed
+      apt:
+        name: iproute2
+        state: present
+        update_cache: yes
+
+    - name: Check if GRE module is loaded
+      command: lsmod | grep ip_gre
+      register: gre_module
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Load GRE kernel module
+      modprobe:
+        name: ip_gre
+        state: present
+      when: gre_module.rc != 0
+
+    - name: Ensure GRE module loads on boot
+      lineinfile:
+        path: /etc/modules-load.d/gre.conf
+        line: ip_gre
+        create: yes
+
+    - name: Remove existing tunnel if present
+      command: ip tunnel del {{ tunnel_name }}
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Create GRE tunnel
+      command: >
+        ip tunnel add {{ tunnel_name }} mode gre
+        local {{ tunnel_local_ip }}
+        remote {{ tunnel_remote_ip }}
+        ttl 64
+        {% if gre_key is defined and gre_key %}key {{ gre_key }}{% endif %}
+      register: tunnel_create
+
+    - name: Assign IP to tunnel interface
+      command: ip addr add {{ tunnel_inner_ip }}/{{ tunnel_inner_prefix }} dev {{ tunnel_name }}
+
+    - name: Bring tunnel interface up
+      command: ip link set {{ tunnel_name }} up
+
+    - name: Verify tunnel is up
+      command: ip addr show {{ tunnel_name }}
+      register: tunnel_status
+      changed_when: false
+
+    - name: Display tunnel status
+      debug:
+        var: tunnel_status.stdout_lines
+
+    - name: Enable IP forwarding
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: '1'
+        sysctl_set: yes
+        state: present
+        reload: yes
+
+    - name: Test ping to remote tunnel endpoint
+      command: ping -c 3 -W 2 {{ tunnel_remote_ip }}
+      register: ping_result
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Display ping result
+      debug:
+        msg: "Ping to {{ tunnel_remote_ip }}: {{ 'SUCCESS' if ping_result.rc == 0 else 'FAILED - check network connectivity' }}"

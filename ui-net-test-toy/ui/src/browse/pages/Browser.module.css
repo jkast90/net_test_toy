@@ -1,0 +1,369 @@
+.container {
+  padding: 1rem;
+  padding-top: 4.5rem; /* Account for both navbars with spacing */
+  padding-bottom: 180px;
+  background: var(--nav-bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* Sub-navigation bar */
+.subNav {
+  position: fixed;
+  top: 60px; /* Below main navbar */
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--accent-dark);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  padding: 0.5rem 1.25rem;
+  transition: top 0.3s ease;
+}
+
+/* Adjust position when banner is present */
+.subNavWithBanner {
+  top: 117px; /* 60px navbar + ~57px banner with padding */
+}
+
+/* Fixed width subnav styling */
+body.force-fixed-width .subNav {
+  left: 50%;
+  right: auto;
+  width: var(--fixed-width, 425px);
+  transform: translateX(-50%);
+  max-width: 100vw;
+}
+
+.subNavInner {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.subNavButton {
+  background: transparent;
+  border: none;
+  color: var(--accent-dark);
+  padding: 0.25rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  position: relative;
+  text-decoration: none;
+}
+
+.subNavButton:hover {
+  color: var(--text);
+}
+
+.activeSubNav {
+  color: var(--text);
+}
+
+.activeSubNav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-dark);
+  border-radius: 2px;
+  box-shadow:
+    -4px 2px 8px var(--accent-dark),
+    4px 2px 8px var(--accent-dark),
+    0 4px 12px var(--accent-dark);
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
+  }
+}
+
+.section {
+  margin-bottom: 2rem;
+  scroll-margin-top: 90px; /* Account for both navbars with spacing */
+}
+
+/* Adjust scroll margin when banner is present */
+.sectionWithBanner {
+  scroll-margin-top: 147px; /* Account for navbar + banner + subnav */
+}
+
+.sectionHeader {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  border-bottom: 2px solid var(--accent-light);
+  padding-bottom: 0.5rem;
+  color: var(--accent-light);
+  gap: 1rem;
+  align-items: center;
+}
+
+.workspaceList,
+.groupList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.workspaceItem,
+.groupItem {
+  margin-bottom: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--accent-dark);
+  border-radius: 4px;
+  padding: 0.75rem;
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  vertical-align: top;
+}
+
+.title {
+  flex: 1;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.dropdown {
+  min-width: 150px;
+  background: var(--nav-bg);
+  color: var(--text);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  color: var(--text);
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--accent-dark);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+}
+
+.table th:last-child,
+.table td:last-child {
+  border-right: none;
+}
+
+.table th {
+  background: var(--group-header);
+  text-align: left;
+  color: var(--accent-light);
+  position: sticky;
+  top: 100px; /* Account for both navbars (60px + 40px) */
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+/* Adjust sticky headers when banner is present */
+.sectionWithBanner .table th {
+  top: 157px; /* Account for navbar + banner + subnav */
+}
+
+.thumbnail {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+/* Hover glow on tile items */
+.groupItem:hover,
+.workspaceItem:hover {
+  box-shadow: 0 0 10px var(--tile-glow);
+}
+
+/* Compact table styling for groups and workspaces */
+.groupRow,
+.workspaceRow {
+  border-left: 3px solid var(--accent);
+}
+
+.groupRow:hover,
+.workspaceRow:hover {
+  background: var(--card-hover, rgba(255, 255, 255, 0.03));
+}
+
+.groupName {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Compact nested table styling */
+.nestedTableCell {
+  padding: 0.5rem !important;
+  background: var(--nav-bg);
+}
+
+.nestedTableContainer {
+  padding: 0.5rem;
+  border-top: 1px solid var(--accent-dark);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.nestedTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  font-size: 0.85rem;
+}
+
+.nestedTable th {
+  background: var(--group-header);
+  color: var(--accent-light);
+  font-size: 0.8rem;
+  padding: 0.3rem;
+  font-weight: 600;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 130px; /* Position below main table header (100px + 30px for main header height) */
+  z-index: 8;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+/* Adjust nested table headers when banner is present */
+.sectionWithBanner .nestedTable th {
+  top: 187px; /* Account for navbar + banner + subnav + main header */
+}
+
+.nestedTable th:last-child {
+  border-right: none;
+}
+
+.nestedTable td {
+  padding: 0.3rem;
+  border-bottom: 1px solid var(--accent-dark);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+}
+
+.nestedTable td:last-child {
+  border-right: none;
+}
+
+.nestedTable tr:last-child td {
+  border-bottom: none;
+}
+
+/* Compact table cells */
+.table th,
+.table td {
+  padding: 0.4rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.table th {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.itemLink {
+  color: var(--accent-light);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.itemLink:hover {
+  text-decoration: underline;
+}
+
+/* Workspace-specific styling */
+.workspaceRow {
+  border-left: 4px solid var(--accent-light);
+}
+
+.workspaceRow:hover {
+  background: var(--card-hover, rgba(255, 255, 255, 0.05));
+}
+
+.workspaceName {
+  font-weight: 600;
+  position: relative;
+}
+
+.workspaceId {
+  font-size: 0.8rem;
+  color: var(--text-muted, #888);
+  margin-top: 0.2rem;
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  color: var(--accent-light);
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+.toggleButton:hover {
+  background: var(--accent-dark);
+}
+
+/* Browser-specific mobile styles that can't be generalized */
+body.force-mobile-view .subNav {
+  top: 50px; /* Specific to Browser page sub-navigation */
+}
+
+body.force-mobile-view .subNavWithBanner {
+  top: 107px; /* Mobile navbar + banner with padding */
+}
+
+body.force-mobile-view .section {
+  scroll-margin-top: 70px; /* Adjusted for mobile navbar + subnav */
+}
+
+body.force-mobile-view .sectionWithBanner {
+  scroll-margin-top: 127px; /* Mobile navbar + banner + subnav */
+}
+
+body.force-mobile-view .nestedTable th {
+  top: 110px; /* Browser-specific nested table positioning */
+}
+
+/* Wish Cards - Mobile View */
+.desktopTable {
+  display: block;
+}
+
+.mobileCards {
+  display: none;
+}
+
+.detailLabel {
+  color: var(--text-muted, #888);
+  font-weight: 500;
+  min-width: 80px;
+}

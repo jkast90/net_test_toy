@@ -1,0 +1,16 @@
+.connectionFormWrapper {
+  width: 100%;
+  max-width: 100%;
+}
+
+.connectionFormWrapper h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.connectionFormWrapper p {
+  margin: 0;
+  color: var(--text-muted);
+}

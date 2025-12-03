@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    "strict": false,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@deployment-config": ["src/deployment-config.js"],
+      "@common/*": ["src/_common/*"],
+      "@auth/*": ["src/auth/*"],
+      "@calendar/*": ["src/calendar/*"],
+      "@feed/*": ["src/feed/*"],
+      "@memories/*": ["src/memories/*"],
+      "@profile/*": ["src/profile/*"],
+      "@wishlist/*": ["src/wishlist/*"],
+      "@yearly-summary/*": ["src/yearly-summary/*"],
+      "@browse/*": ["src/browse/*"],
+      "@about/*": ["src/about/*"]
+    },
+
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx"
+  ]
+}

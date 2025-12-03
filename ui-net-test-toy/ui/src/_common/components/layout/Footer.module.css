@@ -1,0 +1,326 @@
+/* src/components/Footer.module.css */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: var(--nav-bg);
+  box-shadow: 0 -4px 10px var(--shadow-color);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  z-index: 9999;
+  border-top: 1px solid var(--accent-dark);
+}
+
+/* position child sections within the fixed footer */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* ...existing styles... */
+  display: flex;
+  justify-content: center; /* we'll handle sections manually */
+}
+
+/* left-aligned user info */
+/* .leftSection {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--text);
+}
+
+.userInfo .userName {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.userInfo .userEmail {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.rightSection {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+} */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  background: var(--nav-bg);
+  border-top: 1px solid var(--accent-dark);
+  gap: 1rem;
+}
+
+/* Left zone: two stacked lines */
+.footerLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  flex: 0 0 auto;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.footerLine {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* Email wrapping styles */
+.emailWrapper {
+  display: inline;
+}
+
+/* Loading indicator */
+.loadingIndicator {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+  position: relative;
+}
+
+.loadingDot {
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(45deg, #00ff00, #ffff00);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+}
+
+.loadingDot.idle {
+  background: linear-gradient(45deg, #4a5568, #718096);
+  animation: none;
+  opacity: 0.5;
+  box-shadow: 0 0 4px rgba(113, 128, 150, 0.3);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+    background: linear-gradient(45deg, #00ff00, #ffff00);
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+    background: linear-gradient(45deg, #ffff00, #ff8800);
+  }
+}
+
+/* Hide API and build info by default, show on hover */
+.hiddenOnDefault {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  transform: translateY(-10px);
+}
+
+.footerLeft:hover .hiddenOnDefault {
+  opacity: 1;
+  max-height: 2rem;
+  transform: translateY(0);
+}
+
+/* Center zone: grows, centers its children */
+.footerCenter {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Right zone: workspace selector and settings button */
+.footerRight {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Theme drawer styles */
+.themeDrawer {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 0.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--accent-dark);
+  border-radius: 8px;
+  padding: 0.75rem;
+  box-shadow: 0 -4px 12px var(--shadow-color);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  min-width: 200px;
+}
+
+.themeDrawer.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.themeList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.themeItem {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.themeItem:hover {
+  background: var(--accent-dark);
+}
+
+.themeItem.active {
+  background: var(--accent);
+  font-weight: 600;
+}
+
+.themeName {
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.themeButtonWrapper {
+  position: relative;
+}
+
+/* Force fixed width styles - applies when forceFixedWidth is enabled */
+body.force-fixed-width .footer {
+  left: 50%;
+  right: auto;
+  width: var(--fixed-width, 425px);
+  transform: translateX(-50%);
+  max-width: 100vw;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  height: auto;
+  min-height: auto;
+  position: fixed;
+  bottom: 0;
+  z-index: 9999;
+}
+
+/* Mobile view styles (for natural mobile devices) */
+body.mobile-view .footer {
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  height: auto;
+  min-height: auto;
+  width: 100vw;
+  left: 0;
+  right: 0;
+  transform: none;
+  position: fixed;
+  bottom: 0;
+  z-index: 9999;
+}
+
+body.force-fixed-width .footerLeft,
+body.force-fixed-width .footerCenter,
+body.force-fixed-width .footerRight,
+body.mobile-view .footerLeft,
+body.mobile-view .footerCenter,
+body.mobile-view .footerRight {
+  flex: none;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+body.force-fixed-width .footerLeft,
+body.mobile-view .footerLeft {
+  order: 2;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+body.force-fixed-width .footerCenter,
+body.mobile-view .footerCenter {
+  order: 1;
+}
+
+body.force-fixed-width .footerRight,
+body.mobile-view .footerRight {
+  order: 3;
+  flex-direction: row;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Make buttons more touch-friendly on mobile */
+body.force-fixed-width .footerRight select,
+body.force-fixed-width .footerRight button,
+body.mobile-view .footerRight select,
+body.mobile-view .footerRight button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+/* Make workspace selector wider on mobile for better readability */
+body.force-fixed-width .footerRight select,
+body.mobile-view .footerRight select {
+  min-width: 150px;
+  flex: 1;
+  max-width: 200px;
+}
+
+/* Hide non-essential info on very small screens */
+body.mobile-view .hiddenOnDefault {
+  display: none !important;
+}
+
+body.force-fixed-width .footerLeft .footerLine:not(:first-child),
+body.mobile-view .footerLeft .footerLine:not(:first-child) {
+  display: none;
+}
+
+/* Ensure theme drawer works well on mobile */
+body.force-fixed-width .themeDrawer,
+body.mobile-view .themeDrawer {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%) translateY(10px);
+  width: 90vw;
+  max-width: 300px;
+}
+
+body.force-fixed-width .themeDrawer.open,
+body.mobile-view .themeDrawer.open {
+  transform: translateX(-50%) translateY(0);
+}

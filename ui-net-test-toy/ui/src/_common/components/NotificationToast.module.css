@@ -1,0 +1,145 @@
+.container {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 420px;
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--card-bg);
+  border: 2px solid;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  animation: slideIn 0.3s ease-out;
+  pointer-events: auto;
+  min-width: 350px;
+  max-width: 420px;
+}
+
+.toast.exiting {
+  animation: slideOut 0.3s ease-out;
+}
+
+.toast.info {
+  border-color: var(--info-color, #3498db);
+  background: var(--card-bg);
+}
+
+.toast.warning {
+  border-color: var(--warning-color, #f39c12);
+  background: var(--card-bg);
+}
+
+.toast.error {
+  border-color: var(--error-color, #e74c3c);
+  background: var(--card-bg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.closeBtn:hover {
+  color: var(--text);
+}
+
+.content {
+  margin-bottom: 8px;
+}
+
+.message {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.flowInfo {
+  background: var(--bg-secondary, rgba(0, 0, 0, 0.2));
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.flowDetail {
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.flowDetail:last-child {
+  margin-bottom: 0;
+}
+
+.flowDetail strong {
+  color: var(--text);
+  margin-right: 6px;
+}
+
+.actionType {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.actionType strong {
+  color: var(--text);
+}
+
+.timestamp {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: 4px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
