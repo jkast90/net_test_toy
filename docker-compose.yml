@@ -2,8 +2,6 @@
 # One container = One daemon + One embedded API
 # Use: docker compose up -d
 
-version: '3.8'
-
 services:
   ##################################################
   # Base Images (build-only, not started)
