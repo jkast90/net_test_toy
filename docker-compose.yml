@@ -115,7 +115,7 @@ services:
       - "5010:5000"  # Container management API
     volumes:
       - ./api-container:/app/api-container
-      - ./api-routing/container_manager.db:/app/data/container_manager.db  # Shared database
+      - container_manager_data:/app/data  # Persistent database storage
       - /var/run/docker.sock:/var/run/docker.sock  # Docker socket for container management
     environment:
       - CONTAINER_DB_PATH=/app/data/container_manager.db
@@ -141,7 +141,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./netstream2/ui:/app
+      - ./ui-net-test-toy/ui:/app
       - /app/node_modules  # Prevent overwriting node_modules
     working_dir: /app
     environment:
@@ -164,3 +164,6 @@ networks:
       config:
         - subnet: 192.168.70.0/24
           gateway: 192.168.70.1
+
+volumes:
+  container_manager_data:
