@@ -150,20 +150,37 @@ status:
 ##############################################################################
 
 build:
-	@echo "🏗️  Building all service images..."
-	$(DOCKER_COMPOSE) build
+	@echo "🏗️  Building all images with dependency resolution..."
+	@if docker buildx bake --help >/dev/null 2>&1; then \
+		docker buildx bake; \
+	else \
+		echo "BuildKit bake not available, falling back to sequential build..."; \
+		$(MAKE) build-images; \
+	fi
 
 build-base:
 	@echo "🏗️  Building base images..."
-	$(DOCKER_COMPOSE) build _python-base _bullseye-base
+	@if docker buildx bake --help >/dev/null 2>&1; then \
+		docker buildx bake base; \
+	else \
+		$(DOCKER_COMPOSE) build _python-base _bullseye-base; \
+	fi
 
-build-daemons:
+build-daemons: build-base
 	@echo "🏗️  Building daemon images..."
-	$(DOCKER_COMPOSE) build _frr-unified _gobgp-unified _exabgp-unified
+	@if docker buildx bake --help >/dev/null 2>&1; then \
+		docker buildx bake daemons; \
+	else \
+		$(DOCKER_COMPOSE) build _frr-unified _gobgp-unified _exabgp-unified; \
+	fi
 
-build-hosts:
+build-hosts: build-base
 	@echo "🏗️  Building host images..."
-	$(DOCKER_COMPOSE) build _host-netknight
+	@if docker buildx bake --help >/dev/null 2>&1; then \
+		docker buildx bake host-netknight; \
+	else \
+		$(DOCKER_COMPOSE) build _host-netknight; \
+	fi
 
 build-images: build-base build-daemons build-hosts
 	@echo "✅ All base, daemon, and host images built successfully"
