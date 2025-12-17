@@ -295,12 +295,7 @@ class TopologyManager(BaseManager):
                         ports={
                             "5000/tcp": daemon["api_port"]
                         },
-                        volumes={
-                            "/Users/jeremykast/src/netstream/api-routing": {
-                                "bind": "/app/api-routing",
-                                "mode": "rw"
-                            }
-                        },
+                        privileged=True,
                         cap_add=["NET_ADMIN", "SYS_ADMIN", "NET_RAW"],
                         sysctls={
                             "net.ipv4.ip_forward": "1",
@@ -395,6 +390,7 @@ class TopologyManager(BaseManager):
                         name=host["name"],
                         hostname=host["name"],
                         detach=True,
+                        privileged=True,
                         cap_add=["NET_ADMIN", "SYS_ADMIN", "NET_RAW"],
                         labels={
                             "netstream.type": "host",
@@ -407,12 +403,6 @@ class TopologyManager(BaseManager):
                         },
                         ports={
                             "8000/tcp": api_port
-                        },
-                        volumes={
-                            "/Users/jeremykast/src/netstream/api-netknight": {
-                                "bind": "/app/api-netknight",
-                                "mode": "rw"
-                            }
                         },
                         restart_policy={"Name": "unless-stopped"}
                     )

@@ -119,12 +119,7 @@ class DaemonManager(BaseManager):
                     "netstream.ip_address": ip_address
                 },
                 ports={"5000/tcp": api_port},
-                volumes={
-                    "/Users/jeremykast/src/netstream/api-routing": {
-                        "bind": "/app/api-routing",
-                        "mode": "rw"
-                    }
-                },
+                privileged=True,
                 cap_add=["NET_ADMIN", "SYS_ADMIN", "NET_RAW"],
                 sysctls={
                     "net.ipv4.ip_forward": "1",
@@ -287,6 +282,7 @@ class DaemonManager(BaseManager):
                     "5000/tcp": api_port
                 } if api_port else {},
                 volumes=config["HostConfig"]["Binds"],
+                privileged=True,
                 cap_add=["NET_ADMIN", "SYS_ADMIN", "NET_RAW"],
                 sysctls={
                     "net.ipv4.ip_forward": "1",
@@ -448,12 +444,7 @@ class DaemonManager(BaseManager):
                         "netstream.ip_address": daemon["ip_address"]
                     },
                     ports={"5000/tcp": daemon.get("api_port")},
-                    volumes={
-                        "/Users/jeremykast/src/netstream/api-routing": {
-                            "bind": "/app/api-routing",
-                            "mode": "rw"
-                        }
-                    },
+                    privileged=True,
                     cap_add=["NET_ADMIN", "SYS_ADMIN", "NET_RAW"],
                     sysctls={
                         "net.ipv4.ip_forward": "1",

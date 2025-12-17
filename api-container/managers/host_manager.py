@@ -109,6 +109,7 @@ class HostManager(BaseManager):
                 hostname=name,
                 command=command,
                 detach=True,
+                privileged=True,
                 cap_add=["NET_ADMIN", "SYS_ADMIN", "NET_RAW"],
                 labels={
                     "netstream.type": "host",
@@ -120,16 +121,6 @@ class HostManager(BaseManager):
                     "netstream.api_port": str(api_port)
                 },
                 ports={"8000/tcp": api_port},
-                volumes={
-                    "/Users/jeremykast/src/netstream/api-routing": {
-                        "bind": "/app/api-routing",
-                        "mode": "rw"
-                    },
-                    "/Users/jeremykast/src/netstream/api-netknight": {
-                        "bind": "/app/api-netknight",
-                        "mode": "rw"
-                    }
-                },
                 restart_policy={"Name": "unless-stopped"},
                 **net_config  # Network attached at creation
             )
@@ -475,6 +466,7 @@ class HostManager(BaseManager):
                     hostname=name,
                     command=command,
                     detach=True,
+                    privileged=True,
                     cap_add=["NET_ADMIN", "SYS_ADMIN", "NET_RAW"],
                     labels={
                         "netstream.type": "host",
@@ -486,16 +478,6 @@ class HostManager(BaseManager):
                         "netstream.api_port": str(host_data.get("api_port", 8000))
                     },
                     ports={"8000/tcp": host_data.get("api_port", 8000)},
-                    volumes={
-                        "/Users/jeremykast/src/netstream/api-routing": {
-                            "bind": "/app/api-routing",
-                            "mode": "rw"
-                        },
-                        "/Users/jeremykast/src/netstream/api-netknight": {
-                            "bind": "/app/api-netknight",
-                            "mode": "rw"
-                        }
-                    },
                     restart_policy={"Name": "unless-stopped"},
                     **net_config
                 )
