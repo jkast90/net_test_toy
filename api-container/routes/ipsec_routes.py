@@ -176,13 +176,13 @@ async def create_ipsec_link(topology_name: str, request: IPsecLinkCreate):
     # Try daemon networks first
     daemon1_networks = container_manager.db.get_daemon_networks(request.container1)
     for net in daemon1_networks:
-        if net['network_name'] == request.network:
+        if net.get('name') == request.network or net.get('network_name') == request.network:
             container1_ip = net['ipv4_address']
             break
 
     daemon2_networks = container_manager.db.get_daemon_networks(request.container2)
     for net in daemon2_networks:
-        if net['network_name'] == request.network:
+        if net.get('name') == request.network or net.get('network_name') == request.network:
             container2_ip = net['ipv4_address']
             break
 
@@ -190,14 +190,14 @@ async def create_ipsec_link(topology_name: str, request: IPsecLinkCreate):
     if not container1_ip:
         host1_networks = container_manager.db.get_host_networks(request.container1)
         for net in host1_networks:
-            if net['network_name'] == request.network:
+            if net.get('name') == request.network or net.get('network_name') == request.network:
                 container1_ip = net['ipv4_address']
                 break
 
     if not container2_ip:
         host2_networks = container_manager.db.get_host_networks(request.container2)
         for net in host2_networks:
-            if net['network_name'] == request.network:
+            if net.get('name') == request.network or net.get('network_name') == request.network:
                 container2_ip = net['ipv4_address']
                 break
 
