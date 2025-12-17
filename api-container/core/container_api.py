@@ -11,6 +11,7 @@ from .container_manager import ContainerManager
 from .websocket_manager import bmp_manager, netflow_manager, netflow_flows_manager
 from ..utils import discover_monitoring_services
 from ..managers.tap_manager import TapManager
+from ..managers.ipsec_manager import IPsecManager
 
 # Import route setup functions
 from ..routes.daemon_routes import setup_daemon_routes
@@ -24,6 +25,7 @@ from ..routes.websocket_routes import setup_websocket_routes
 from ..routes.proxy_routes import setup_proxy_routes
 from ..routes.utility_routes import setup_utility_routes
 from ..routes.tap_routes import setup_tap_routes
+from ..routes import ipsec_routes
 
 
 # Set up logging
@@ -45,6 +47,12 @@ container_manager = ContainerManager()
 
 # Initialize tap manager with db reference for topology management_network lookup
 tap_manager = TapManager(container_manager.client, db=container_manager.db)
+
+# Initialize IPsec manager
+ipsec_manager = IPsecManager(container_manager.client, container_manager.db)
+
+# Set managers for IPsec routes
+ipsec_routes.set_managers(ipsec_manager, container_manager)
 
 # HTTP client for proxying requests
 http_client = httpx.AsyncClient(timeout=30.0)
@@ -162,6 +170,7 @@ app.include_router(network_router)
 app.include_router(topology_router)
 app.include_router(lab_router)
 app.include_router(tunnel_router)
+app.include_router(ipsec_routes.router)
 app.include_router(netflow_router)
 app.include_router(utility_router)
 

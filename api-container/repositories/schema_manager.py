@@ -598,5 +598,56 @@ class SchemaManager:
             )
         """)
 
+        # IPsec links table - single record per tunnel between two containers
+        # Similar to GRE links but with StrongSwan-specific parameters
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS ipsec_links (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                topology_name TEXT DEFAULT 'default',
+                container1 TEXT NOT NULL,
+                container2 TEXT NOT NULL,
+                network TEXT NOT NULL,
+                tunnel_ip1 TEXT NOT NULL,
+                tunnel_ip2 TEXT NOT NULL,
+                tunnel_network TEXT DEFAULT '30',
+                psk TEXT,
+                ike_version INTEGER DEFAULT 2,
+                ike_cipher TEXT DEFAULT 'aes256-sha256-modp2048',
+                esp_cipher TEXT DEFAULT 'aes256-sha256',
+                dh_group TEXT DEFAULT 'modp2048',
+                ike_lifetime INTEGER DEFAULT 86400,
+                sa_lifetime INTEGER DEFAULT 3600,
+                dpd_delay INTEGER DEFAULT 30,
+                dpd_timeout INTEGER DEFAULT 120,
+                arc REAL DEFAULT 0,
+                status TEXT DEFAULT 'configured',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(topology_name, container1, container2),
+                FOREIGN KEY (topology_name) REFERENCES topologies(name) ON DELETE CASCADE
+            )
+        """)
+
+        # Legacy IPsec tunnels table - per-container tunnel records
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS ipsec_tunnels (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                container_name TEXT NOT NULL,
+                tunnel_name TEXT NOT NULL,
+                topology_name TEXT DEFAULT 'default',
+                local_ip TEXT NOT NULL,
+                remote_ip TEXT NOT NULL,
+                tunnel_ip TEXT NOT NULL,
+                tunnel_network TEXT DEFAULT '30',
+                psk TEXT,
+                ike_version INTEGER DEFAULT 2,
+                ike_cipher TEXT DEFAULT 'aes256-sha256-modp2048',
+                esp_cipher TEXT DEFAULT 'aes256-sha256',
+                status TEXT DEFAULT 'configured',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(container_name, tunnel_name),
+                FOREIGN KEY (topology_name) REFERENCES topologies(name) ON DELETE CASCADE
+            )
+        """)
+
         self.conn.commit()
         logger.info("Database tables created/verified")

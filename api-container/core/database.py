@@ -13,6 +13,7 @@ from ..repositories.daemon_repository import DaemonRepository
 from ..repositories.host_repository import HostRepository
 from ..repositories.bgp_repository import BGPRepository
 from ..repositories.gre_repository import GRERepository
+from ..repositories.ipsec_repository import IPsecRepository
 from ..repositories.tap_repository import TapRepository
 from ..repositories.node_repository import NodeRepository
 
@@ -41,6 +42,7 @@ class Database(BaseRepository):
         self._host_repo = HostRepository(self.conn, self.get_active_topology)
         self._bgp_repo = BGPRepository(self.conn, self.get_active_topology)
         self._gre_repo = GRERepository(self.conn, self.get_active_topology)
+        self._ipsec_repo = IPsecRepository(self.conn, self.get_active_topology)
         self._tap_repo = TapRepository(self.conn)
         self._node_repo = NodeRepository(self.conn, self.get_active_topology)
 
@@ -281,6 +283,67 @@ class Database(BaseRepository):
 
     def delete_gre_tunnel(self, container_name: str, tunnel_name: str) -> None:
         return self._gre_repo.delete_tunnel(container_name, tunnel_name)
+
+    # ========================================================================
+    # IPsec Methods (delegated to IPsecRepository)
+    # ========================================================================
+
+    # IPsec Links (new model - single record per tunnel)
+    def create_ipsec_link(self, container1: str, container2: str, network: str,
+                          tunnel_ip1: str, tunnel_ip2: str, tunnel_network: str = "30",
+                          psk: Optional[str] = None, ike_version: int = 2,
+                          ike_cipher: str = "aes256-sha256-modp2048",
+                          esp_cipher: str = "aes256-sha256",
+                          dh_group: str = "modp2048",
+                          ike_lifetime: int = 86400, sa_lifetime: int = 3600,
+                          dpd_delay: int = 30, dpd_timeout: int = 120,
+                          topology_name: Optional[str] = None) -> int:
+        return self._ipsec_repo.create_link(container1, container2, network,
+                                            tunnel_ip1, tunnel_ip2, tunnel_network,
+                                            psk, ike_version, ike_cipher, esp_cipher,
+                                            dh_group, ike_lifetime, sa_lifetime,
+                                            dpd_delay, dpd_timeout, topology_name)
+
+    def get_ipsec_link(self, link_id: int) -> Optional[Dict[str, Any]]:
+        return self._ipsec_repo.get_link(link_id)
+
+    def list_ipsec_links(self, topology_name: Optional[str] = None,
+                         container_name: Optional[str] = None) -> List[Dict[str, Any]]:
+        return self._ipsec_repo.list_links(topology_name, container_name)
+
+    def delete_ipsec_link(self, link_id: int) -> None:
+        return self._ipsec_repo.delete_link(link_id)
+
+    def delete_ipsec_link_by_containers(self, container1: str, container2: str,
+                                         topology_name: Optional[str] = None) -> None:
+        return self._ipsec_repo.delete_link_by_containers(container1, container2, topology_name)
+
+    def update_ipsec_link_arc(self, link_id: int, arc: float) -> None:
+        return self._ipsec_repo.update_link_arc(link_id, arc)
+
+    def update_ipsec_link_status(self, link_id: int, status: str) -> None:
+        return self._ipsec_repo.update_link_status(link_id, status)
+
+    # IPsec Tunnels (legacy - per-container records)
+    def create_ipsec_tunnel(self, container_name: str, tunnel_name: str, local_ip: str,
+                            remote_ip: str, tunnel_ip: str, tunnel_network: str = "30",
+                            psk: Optional[str] = None, ike_version: int = 2,
+                            ike_cipher: str = "aes256-sha256-modp2048",
+                            esp_cipher: str = "aes256-sha256",
+                            topology_name: Optional[str] = None) -> None:
+        return self._ipsec_repo.create_tunnel(container_name, tunnel_name, local_ip, remote_ip,
+                                              tunnel_ip, tunnel_network, psk, ike_version,
+                                              ike_cipher, esp_cipher, topology_name)
+
+    def get_ipsec_tunnel(self, container_name: str, tunnel_name: str) -> Optional[Dict[str, Any]]:
+        return self._ipsec_repo.get_tunnel(container_name, tunnel_name)
+
+    def list_ipsec_tunnels(self, container_name: Optional[str] = None,
+                           topology_name: Optional[str] = None) -> List[Dict[str, Any]]:
+        return self._ipsec_repo.list_tunnels(container_name, topology_name)
+
+    def delete_ipsec_tunnel(self, container_name: str, tunnel_name: str) -> None:
+        return self._ipsec_repo.delete_tunnel(container_name, tunnel_name)
 
     # ========================================================================
     # Topology Tap Methods (delegated to TapRepository)
