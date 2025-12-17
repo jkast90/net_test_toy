@@ -739,6 +739,124 @@ def setup_topology_routes(app, container_manager):
         }
 
     # ==============================================================================
+    # IPsec Link Management Endpoints
+    # ==============================================================================
+
+    class CreateIPsecLinkRequest(BaseModel):
+        container1: str
+        container2: str
+        network: str
+        tunnel_ip1: str
+        tunnel_ip2: str
+        tunnel_network: str = "30"
+        psk: Optional[str] = None
+        ike_version: int = 2
+        ike_cipher: str = "aes256-sha256-modp2048"
+        esp_cipher: str = "aes256-sha256"
+        dh_group: str = "modp2048"
+        ike_lifetime: int = 86400
+        sa_lifetime: int = 3600
+        dpd_delay: int = 30
+        dpd_timeout: int = 120
+
+    @router.post("/{topology_name}/ipsec/links")
+    def create_ipsec_link(topology_name: str, req: CreateIPsecLinkRequest):
+        """Create an IPsec link between two containers (single record per tunnel)"""
+        import secrets
+        # Generate PSK if not provided
+        psk = req.psk if req.psk else secrets.token_urlsafe(32)
+
+        link_id = container_manager.db.create_ipsec_link(
+            container1=req.container1,
+            container2=req.container2,
+            network=req.network,
+            tunnel_ip1=req.tunnel_ip1,
+            tunnel_ip2=req.tunnel_ip2,
+            tunnel_network=req.tunnel_network,
+            psk=psk,
+            ike_version=req.ike_version,
+            ike_cipher=req.ike_cipher,
+            esp_cipher=req.esp_cipher,
+            dh_group=req.dh_group,
+            ike_lifetime=req.ike_lifetime,
+            sa_lifetime=req.sa_lifetime,
+            dpd_delay=req.dpd_delay,
+            dpd_timeout=req.dpd_timeout,
+            topology_name=topology_name
+        )
+        return {
+            "message": f"IPsec link created between {req.container1} and {req.container2}",
+            "link_id": link_id,
+            "psk": psk,
+            "topology_name": topology_name
+        }
+
+    @router.get("/{topology_name}/ipsec/links")
+    def list_ipsec_links(topology_name: str):
+        """List all IPsec links in a topology"""
+        links = container_manager.db.list_ipsec_links(topology_name=topology_name)
+        return {
+            "topology_name": topology_name,
+            "links": links,
+            "count": len(links)
+        }
+
+    @router.get("/{topology_name}/ipsec/links/{link_id}")
+    def get_ipsec_link(topology_name: str, link_id: int):
+        """Get a specific IPsec link by ID"""
+        link = container_manager.db.get_ipsec_link(link_id)
+        if not link:
+            raise HTTPException(status_code=404, detail=f"IPsec link {link_id} not found")
+        if link.get("topology_name") != topology_name:
+            raise HTTPException(status_code=400, detail=f"IPsec link {link_id} does not belong to topology '{topology_name}'")
+        return link
+
+    @router.delete("/{topology_name}/ipsec/links/{link_id}")
+    def delete_ipsec_link_by_id(topology_name: str, link_id: int):
+        """Delete an IPsec link by ID"""
+        link = container_manager.db.get_ipsec_link(link_id)
+        if not link:
+            raise HTTPException(status_code=404, detail=f"IPsec link {link_id} not found")
+        if link.get("topology_name") != topology_name:
+            raise HTTPException(status_code=400, detail=f"IPsec link {link_id} does not belong to topology '{topology_name}'")
+
+        container_manager.db.delete_ipsec_link(link_id)
+        return {"message": f"IPsec link {link_id} deleted"}
+
+    class DeleteIPsecLinkByContainersRequest(BaseModel):
+        container1: str
+        container2: str
+
+    @router.delete("/{topology_name}/ipsec/links/by-containers")
+    def delete_ipsec_link_by_containers(topology_name: str, req: DeleteIPsecLinkByContainersRequest):
+        """Delete an IPsec link by the container names of both endpoints"""
+        container_manager.db.delete_ipsec_link_by_containers(
+            container1=req.container1,
+            container2=req.container2,
+            topology_name=topology_name
+        )
+        return {"message": f"IPsec link between {req.container1} and {req.container2} deleted"}
+
+    class UpdateIPsecLinkArcRequest(BaseModel):
+        arc: float
+
+    @router.patch("/{topology_name}/ipsec/links/{link_id}/arc")
+    def update_ipsec_link_arc(topology_name: str, link_id: int, req: UpdateIPsecLinkArcRequest):
+        """Update the arc (line curvature) of an IPsec link for topology visualization"""
+        link = container_manager.db.get_ipsec_link(link_id)
+        if not link:
+            raise HTTPException(status_code=404, detail=f"IPsec link {link_id} not found")
+        if link.get("topology_name") != topology_name:
+            raise HTTPException(status_code=400, detail=f"IPsec link {link_id} does not belong to topology '{topology_name}'")
+
+        container_manager.db.update_ipsec_link_arc(link_id, req.arc)
+        return {
+            "message": f"IPsec link {link_id} arc updated to {req.arc}",
+            "link_id": link_id,
+            "arc": req.arc
+        }
+
+    # ==============================================================================
     # Route Advertisement Configuration Endpoints
     # ==============================================================================
 
