@@ -14,13 +14,14 @@ logger = logging.getLogger("container-api")
 class TopologyManager(BaseManager):
     """Manages topology standup, teardown, and details"""
 
-    def __init__(self, client=None, db=None, daemon_manager=None, host_manager=None):
+    def __init__(self, client=None, db=None, daemon_manager=None, host_manager=None, ipsec_manager=None):
         """
         Initialize TopologyManager with Docker client, database, and other managers.
         """
         super().__init__(client, db)
         self.daemon_manager = daemon_manager
         self.host_manager = host_manager
+        self.ipsec_manager = ipsec_manager
 
     # ============================================================================
     # Topology Management Methods
@@ -205,6 +206,7 @@ class TopologyManager(BaseManager):
             "daemon_networks_connected": [],
             "bgp_peers_configured": [],
             "routes_advertised": [],
+            "ipsec_links_restored": [],
             "errors": []
         }
 
@@ -636,10 +638,90 @@ class TopologyManager(BaseManager):
                 except Exception as e:
                     logger.warning(f"Error auto-advertising networks for host '{host['name']}': {e}")
 
+            # Step 9: Restore IPsec VPN links between daemons
+            if self.ipsec_manager:
+                ipsec_links = self.db.list_ipsec_links(topology_name=topology_name)
+                for link in ipsec_links:
+                    try:
+                        container1 = link["container1"]
+                        container2 = link["container2"]
+                        network = link["network"]
+                        tunnel_ip1 = link["tunnel_ip1"]
+                        tunnel_ip2 = link["tunnel_ip2"]
+                        tunnel_network = link.get("tunnel_network", "30")
+                        psk = link.get("psk")
+                        ike_version = link.get("ike_version", 2)
+
+                        # Get container IPs on the shared network
+                        container1_ip = None
+                        container2_ip = None
+
+                        daemon1_networks = self.db.get_daemon_networks(container1)
+                        daemon2_networks = self.db.get_daemon_networks(container2)
+
+                        for net in daemon1_networks:
+                            if net.get('name') == network or net.get('network_name') == network:
+                                container1_ip = net['ipv4_address']
+                                break
+
+                        for net in daemon2_networks:
+                            if net.get('name') == network or net.get('network_name') == network:
+                                container2_ip = net['ipv4_address']
+                                break
+
+                        if not container1_ip or not container2_ip:
+                            raise Exception(f"Could not find IPs for containers on network '{network}'")
+
+                        # Create tunnel on container1 (to container2)
+                        tunnel_name1 = f"ipsec-{container1}-{container2}"
+                        result1 = self.ipsec_manager.create_ipsec_tunnel(
+                            container_name=container1,
+                            tunnel_name=tunnel_name1,
+                            local_ip=container1_ip,
+                            remote_ip=container2_ip,
+                            tunnel_ip=tunnel_ip1,
+                            tunnel_network=tunnel_network,
+                            psk=psk,
+                            ike_version=ike_version,
+                            topology_name=topology_name
+                        )
+
+                        # Create tunnel on container2 (to container1)
+                        tunnel_name2 = f"ipsec-{container2}-{container1}"
+                        result2 = self.ipsec_manager.create_ipsec_tunnel(
+                            container_name=container2,
+                            tunnel_name=tunnel_name2,
+                            local_ip=container2_ip,
+                            remote_ip=container1_ip,
+                            tunnel_ip=tunnel_ip2,
+                            tunnel_network=tunnel_network,
+                            psk=psk,
+                            ike_version=ike_version,
+                            topology_name=topology_name
+                        )
+
+                        results["ipsec_links_restored"].append({
+                            "container1": container1,
+                            "container2": container2,
+                            "tunnel_ip1": tunnel_ip1,
+                            "tunnel_ip2": tunnel_ip2
+                        })
+                        logger.info(f"Restored IPsec VPN link between {container1} and {container2}")
+
+                    except Exception as e:
+                        logger.error(f"Failed to restore IPsec link between {link.get('container1')} and {link.get('container2')}: {e}")
+                        results["errors"].append({
+                            "type": "ipsec_link",
+                            "container1": link.get("container1"),
+                            "container2": link.get("container2"),
+                            "error": str(e)
+                        })
+
             logger.info(f"[TopologyManager] Standup complete for '{topology_name}': "
                        f"{len(results['networks_created'])} networks, {len(results['daemons_created'])} daemons, "
                        f"{len(results['hosts_created'])} hosts created, {len(results['bgp_peers_configured'])} BGP peers configured, "
                        f"{len(results['routes_advertised'])} routes advertised, "
+                       f"{len(results['ipsec_links_restored'])} IPsec links restored, "
                        f"{len(results['errors'])} errors")
 
             return results
@@ -788,6 +870,9 @@ class TopologyManager(BaseManager):
             # Get GRE links (new model)
             gre_links = self.db.list_gre_links(topology_name=topology_name)
 
+            # Get IPsec links
+            ipsec_links = self.db.list_ipsec_links(topology_name=topology_name)
+
             # Get legacy GRE tunnels (for backward compatibility during migration)
             gre_tunnels = self.db.list_gre_tunnels(topology_name=topology_name)
 
@@ -866,6 +951,7 @@ class TopologyManager(BaseManager):
                 "bgp_routes": bgp_routes,
                 "external_nodes": external_nodes,  # Legacy - kept for backward compatibility
                 "gre_links": gre_links,  # New model
+                "ipsec_links": ipsec_links,  # IPsec VPN links
                 "gre_tunnels": gre_tunnels,  # Legacy - kept for backward compatibility
                 "taps": taps,
                 "triggers": triggers

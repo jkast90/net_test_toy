@@ -11,6 +11,7 @@ from ..managers import (
     HostManager,
     NetworkManager,
     TunnelManager,
+    IPsecManager,
     TopologyManager,
     SyncManager,
     ContainerUtils
@@ -37,11 +38,13 @@ class ContainerManager:
             self.host_manager = HostManager(self.client, self.db)
             self.network_manager = NetworkManager(self.client, self.db)
             self.tunnel_manager = TunnelManager(self.client, self.db)
-            # TopologyManager needs access to daemon_manager and host_manager for reset_networking
+            self.ipsec_manager = IPsecManager(self.client, self.db)
+            # TopologyManager needs access to daemon_manager, host_manager, and ipsec_manager
             self.topology_manager = TopologyManager(
                 self.client, self.db,
                 daemon_manager=self.daemon_manager,
-                host_manager=self.host_manager
+                host_manager=self.host_manager,
+                ipsec_manager=self.ipsec_manager
             )
             self.sync_manager = SyncManager(self.client, self.db)
             self.utils = ContainerUtils(self.client, self.db)
