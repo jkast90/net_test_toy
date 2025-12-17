@@ -70,7 +70,8 @@ secrets {{
     def _generate_ipsec_conf(self, tunnel_name: str, local_ip: str, remote_ip: str,
                              tunnel_ip: str, remote_tunnel_ip: str,
                              psk: str, ike_version: int = 2) -> str:
-        """Generate ipsec.conf configuration (legacy format)"""
+        """Generate ipsec.conf configuration (legacy format) with VTI support"""
+        # Use point-to-point tunnel IPs as traffic selectors - this is what VTI expects
         config = f"""conn {tunnel_name}
     type=tunnel
     keyexchange=ikev{ike_version}
@@ -81,12 +82,13 @@ secrets {{
     rightid={remote_ip}
     rightsubnet={remote_tunnel_ip}/32
     authby=secret
-    auto=start
+    auto=route
     ike=aes256-sha256-modp2048!
     esp=aes256-sha256!
     dpdaction=restart
     dpddelay=30s
     dpdtimeout=120s
+    mark=100
 """
         return config
 
@@ -182,10 +184,15 @@ secrets {{
                 logger.warning(f"Failed to write ipsec.secrets: {output.decode()}")
 
             # Generate and write ipsec.conf
-            # Calculate remote tunnel IP (assume next IP in /30)
+            # Calculate remote tunnel IP (assume point-to-point /30 network)
+            # In a /30, if we have .1, the peer is .2 and vice versa
             tunnel_ip_parts = tunnel_ip.split('.')
             last_octet = int(tunnel_ip_parts[3])
-            remote_tunnel_ip = '.'.join(tunnel_ip_parts[:3] + [str(last_octet + 1 if last_octet % 2 == 0 else last_octet - 1)])
+            # For /30: x.x.x.1 pairs with x.x.x.2
+            if last_octet % 2 == 1:
+                remote_tunnel_ip = '.'.join(tunnel_ip_parts[:3] + [str(last_octet + 1)])
+            else:
+                remote_tunnel_ip = '.'.join(tunnel_ip_parts[:3] + [str(last_octet - 1)])
 
             ipsec_conf = self._generate_ipsec_conf(
                 tunnel_name, local_ip, remote_ip, tunnel_ip, remote_tunnel_ip,
@@ -222,9 +229,17 @@ secrets {{
                 container.exec_run("ipsec restart")
                 logger.info("IPsec service restarted")
 
-            # Start the connection
-            exit_code, output = container.exec_run(f"ipsec up {tunnel_name}")
-            ipsec_output = output.decode() if output else ""
+            # Install the route policy (non-blocking)
+            exit_code, output = container.exec_run(f"ipsec route {tunnel_name}")
+            route_output = output.decode() if output else ""
+
+            # Try to initiate the connection with a timeout (5 seconds)
+            # This is non-blocking since auto=route will handle on-demand negotiation
+            exit_code, output = container.exec_run(
+                f"timeout 5 ipsec up {tunnel_name} || true",
+                demux=True
+            )
+            ipsec_output = output[0].decode() if output and output[0] else ""
 
             # Auto-detect topology if not provided
             if topology_name is None:
