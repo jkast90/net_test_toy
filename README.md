@@ -18,29 +18,40 @@ A network simulation and BGP lab environment for building, testing, and visualiz
 
 ## Quick Start
 
-### 1. Build Base Images
+### Option A: One-Command Setup (Recommended)
+
+```bash
+make setup
+```
+
+This builds all images, creates the network, and starts all services.
+
+### Option B: Step-by-Step
+
+#### 1. Build Base Images
 
 ```bash
 make build-base
 ```
 
-This builds the foundational container images (gobgp-base, frr-base, etc.).
+This builds the foundational container images (python-base, bullseye-base).
 
-### 2. Build Application Images
+#### 2. Build Application Images
 
 ```bash
 make build-images
 ```
 
-This builds the unified daemon images and container-manager.
+This builds the unified daemon images (FRR, GoBGP, ExaBGP) and host images.
 
-### 3. Start the Stack
+#### 3. Start the Stack
 
 ```bash
-docker-compose up -d
+make up
+# or: docker compose up -d
 ```
 
-### 4. Access the UI
+#### 4. Access the UI
 
 Open http://localhost:3000 in your browser.
 
@@ -48,22 +59,24 @@ Open http://localhost:3000 in your browser.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        Browser UI                            │
-│                    (React + TypeScript)                      │
-│                      localhost:3000                          │
+│                        Browser UI                           │
+│                    (React + TypeScript)                     │
+│                      localhost:3000                         │
 └─────────────────────────────────────────────────────────────┘
                               │
+              ┌───────────────┴───────────────┐
+              ▼                               ▼
+┌─────────────────────────────┐  ┌─────────────────────────────┐
+│   Container Manager API     │  │      Monitoring API         │
+│     (FastAPI + Python)      │  │        (Python)             │
+│       localhost:5010        │  │      localhost:5002         │
+│  - Topology management      │  │  - BMP Server (:11019)      │
+│  - Container orchestration  │  │  - NetFlow Collector (:2055)│
+│  - BGP session management   │  │  - Route monitoring         │
+└─────────────────────────────┘  └─────────────────────────────┘
+              │                               │
+              └───────────────┬───────────────┘
                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   Container Manager API                      │
-│                   (FastAPI + Python)                         │
-│                      localhost:5010                          │
-│  - Topology management                                       │
-│  - Container orchestration                                   │
-│  - BGP session management                                    │
-│  - NetFlow collection                                        │
-└─────────────────────────────────────────────────────────────┘
-                              │
           ┌───────────────────┼───────────────────┐
           ▼                   ▼                   ▼
    ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
@@ -118,6 +131,20 @@ Open http://localhost:3000 in your browser.
 | POST | `/topologies/{name}/gre/links` | Create GRE link |
 | GET | `/topologies/{name}/gre/links` | List GRE links |
 | DELETE | `/topologies/{name}/gre/links/{id}` | Delete GRE link |
+
+### Monitoring API (localhost:5002)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | API status and info |
+| GET | `/bmp/peers` | List BMP peers |
+| GET | `/bmp/routes` | Get BGP routes from BMP |
+| GET | `/netflow/flows` | Get collected NetFlow data |
+
+**Ports:**
+- `5002` - Monitoring REST API
+- `11019` - BMP Server (TCP) - point BGP daemons here for route monitoring
+- `2055/udp` - NetFlow Collector - send NetFlow/IPFIX data here
 
 ## Creating a Lab
 
@@ -201,11 +228,11 @@ The container-manager mounts the local `api-container` directory, so changes are
 ### Building Individual Images
 
 ```bash
-# Build specific base image
-docker build -t gobgp-base -f base-images/gobgp-base/Dockerfile base-images/gobgp-base/
+# Build a base image
+docker build -t python-base -f docker_base/python-base/dockerfile docker_base/python-base/
 
-# Build unified daemon image
-docker build -t gobgp-unified -f gobgp-unified/Dockerfile .
+# Build a unified daemon image (from project root)
+docker build -t gobgp-unified -f docker_base/gobgp-unified/dockerfile .
 ```
 
 ## Troubleshooting
